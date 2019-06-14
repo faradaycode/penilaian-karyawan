@@ -2,6 +2,7 @@ function updateRangetoText(value, id) {
     document.getElementById(id).value = value;
 }
 
+//ajax
 $(document).ready(function () {
     $("#form_penilaian").submit(function () {
         $.ajax({
