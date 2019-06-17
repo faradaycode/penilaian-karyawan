@@ -18,4 +18,20 @@ $n_penguasaan, $n_semangat, $n_tanggungjwb);
 
 echo json_encode($arr_formu);
 
+
+function doUploadExcel() {
+    include_once "excel_reader2.php";
+    $file_target = basename($_FILES['filekaryawan']['name']);
+    move_uploaded_file($_FILES['filekaryawan']['tmp_name'], $file_target);
+
+    chmod($_FILES['filekaryawan']['name'], 0777);
+
+    $datas = new Spreadsheet_Excel_Reader($_FILES['filekaryawan']['name'], false);
+    $rows = $datas -> rowcount($sheet_index = 0);
+
+    $succed = 0;
+    for ($i = 2; $i <= $rows; $i++) {
+        
+    }
+}
 ?>
