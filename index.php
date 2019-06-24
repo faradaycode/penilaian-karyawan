@@ -5,6 +5,7 @@
 $icon = "";
 $titled = "";
 $pagepath = "";
+$urli = parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
 ?>
 
 <!-- header -->
@@ -66,7 +67,7 @@ $pagepath = "";
         <div class="app-title">
             <div>
                 <h1>
-                    <i class="fa <?php echo $icon; ?>"></i> <?php echo $titled; ?>
+                    <i class="fa <?php echo $icon; ?>"></i> <?php echo $urli; ?>
                 </h1>
                 <!--
                     <p>A free and open source Bootstrap 4 admin template</p>

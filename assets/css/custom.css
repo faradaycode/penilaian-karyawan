@@ -9,20 +9,30 @@ and open the template in the editor.
 */
 
 .flexbox {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    padding: 5px 0 5px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 5px 0 5px 0;
 }
 
 .flexbox > div {
-    margin:5px;
+  margin: 5px;
 }
 
 .form-inline > * {
-   margin: 0 5px;
+  margin: 0 5px;
 }
 
 .row {
-    align-items: center;
+  align-items: center;
+}
+
+.custom-file-label {
+    padding-left: 4.75rem;
+}
+.custom-file-label::after {
+  left: 0;
+  right: auto;
+  border-left-width: 0;
+  border-right: inherit;
 }
