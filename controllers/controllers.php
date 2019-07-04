@@ -1,9 +1,7 @@
 <?php
 
-if (isset($_POST['action'])) {
-
-    doNilai();
-    echo $_POST['action'];
+if (isset($_FILES['filekaryawan'])) { 
+    doUploadExcel();
 }
 
 function doNilai()
@@ -62,5 +60,5 @@ function doUploadExcel()
 
     unlink($_FILES['filekaryawan']['name']);
 
-    echo $rows;
+    echo $file_target;
 }
