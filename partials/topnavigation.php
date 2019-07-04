@@ -1,8 +1,11 @@
-<header class="app-header"><a class="app-header__logo" href="index.html">Vali</a>
+<?php
+$site_name = "SIPEKA"
+?>
+<header class="app-header"><a class="app-header__logo" href="index.html"><?php echo $site_name ?></a>
     <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
-        
+
         <!--Notification Menu-->
 
         <!-- User Menu-->

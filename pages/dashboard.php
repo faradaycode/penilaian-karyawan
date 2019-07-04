@@ -1,1 +1,1 @@
-<img class="img-thumbnail" src="./assets/imgs/nxu.png" />
+<img class="img-logo" src="./assets/imgs/ubj.png" />

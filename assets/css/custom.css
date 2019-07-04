@@ -8,6 +8,10 @@ and open the template in the editor.
     Author     : ferdi
 */
 
+.img-logo {
+  margin: 0px auto;
+}
+
 .flexbox {
   display: flex;
   flex-direction: row;

@@ -7,7 +7,7 @@
         </div>
     </div>
     <ul class="app-menu">
-        <li><a class="app-menu__item active" href="index.html"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
+        <li><a class="app-menu__item active" href="index.php?page=dashboard"><i class="app-menu__icon fa fa-dashboard"></i><span class="app-menu__label">Dashboard</span></a></li>
         <!--dropdown -->
         <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">

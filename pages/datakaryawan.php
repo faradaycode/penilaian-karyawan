@@ -66,20 +66,33 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <form>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile" multiple lang="ar" dir="rtl">
-                            <label class="custom-file-label text-left" for="customFile">choose files to upload</label>
+            <form action="" method="post" name="fr_importxls">
+                <div class="modal-body">
+                    <div class="form-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="customFile" multiple lang="ar" dir="rtl">
+                                <label class="custom-file-label text-left" for="customFile">choose files to upload</label>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+
+<?php
+if (isset($_POST['action'])) {
+    // switch ($_POST['action']) {
+    //     case 'fr_importxls':
+    //         doUploadExcel();
+    //         break;
+    // }
+    echo "<h1>" . $_POST['action'] . "</h1>";
+
+}
+?>
