@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : Jun 11, 2019, 10:16:27 AM
     Author     : ferdi
 */
+section {
+  position: relative;
+}
 
 .img-logo {
   margin: 0px auto;
@@ -39,4 +42,19 @@ and open the template in the editor.
   right: auto;
   border-left-width: 0;
   border-right: inherit;
+}
+
+/* loading style */
+.loading-container {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  /* display: none; */
 }

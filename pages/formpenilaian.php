@@ -1,9 +1,11 @@
 <section id="sec-input-nilai">
+    <div id="loadinger" class="loading-container">
+        <img src="./assets/imgs/loading.gif" />
+    </div>
     <form id="form_penilaian" action="./controllers/controllers.php" name="form_penilaian" method="POST">
         <div class="tile">
             <div class="tile-title">kemampuan teknis</div>
             <div class="tile-body">
-
                 <div class="form-group">
                     <label>kualitas kerja</label>
                     <div class="row">
@@ -122,6 +124,6 @@
                 </div>
             </div>
         </div>
-        <input class="btn btn-success" type="submit" value="Proses">
+        <input type="submit" class="btn btn-success" value="Submit" />
     </form>
 </section>

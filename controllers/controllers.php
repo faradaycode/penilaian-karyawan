@@ -4,6 +4,10 @@ if (isset($_FILES['filekaryawan'])) {
     doUploadExcel();
 }
 
+if (isset($_POST['kualitas'])) {
+    doNilai();
+}
+
 function doNilai()
 {
     // untuk penilaian, disini
@@ -36,7 +40,7 @@ function doNilai()
 
 function doUploadExcel()
 {
-    include_once "excel_reader2.php";
+    include_once "./controllers/excel_reader2.php";
 
     $file_target = basename($_FILES['filekaryawan']['name']);
     move_uploaded_file($_FILES['filekaryawan']['tmp_name'], $file_target);
