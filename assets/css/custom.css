@@ -12,7 +12,8 @@ section {
 }
 
 .img-logo {
-  margin: 0px auto;
+  opacity: 0.3;
+  filter: alpha(opacity=30); /* For IE8 and earlier */
 }
 
 .flexbox {
@@ -57,4 +58,8 @@ section {
   background: rgba(0, 0, 0, 0.4);
   z-index: 1;
   /* display: none; */
+}
+
+.text-capitalize {
+  text-transform: capitalize;
 }

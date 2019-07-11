@@ -1,4 +1,4 @@
-<section id="sec-input-nilai">
+<section id="sec-input-nilai" class="text-capitalize">
     <div id="loadinger" class="loading-container">
         <img src="./assets/imgs/loading.gif" />
     </div>
@@ -46,7 +46,7 @@
         <div class="mt-10"></div>
 
         <div class="tile">
-            <div class="tile-title">kemampuan HAM</div>
+            <div class="tile-title">kemampuan non-teknis</div>
             <div class="tile-body">
                 <div class="form-group">
                     <label>kepemimpinan</label>
