@@ -30,9 +30,13 @@ $(document).ready(function () {
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: $(this).serialize(),
+            data: new FormData(this),
             success: function (data) {
                 console.log(data);
+            },
+            error: function (xhr, exception) {
+                console.log("xhr: " + xhr);
+                console.log("ex: " + exception);
             }
         });
         return false;

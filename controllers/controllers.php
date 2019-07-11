@@ -1,5 +1,7 @@
 <?php
 
+include "excel_reader2.php";
+
 if (isset($_FILES['filekaryawan'])) { 
     doUploadExcel();
 }
@@ -40,29 +42,28 @@ function doNilai()
 
 function doUploadExcel()
 {
-    include_once "./controllers/excel_reader2.php";
 
     $file_target = basename($_FILES['filekaryawan']['name']);
     move_uploaded_file($_FILES['filekaryawan']['tmp_name'], $file_target);
 
-    chmod($_FILES['filekaryawan']['name'], 0777);
+    chmod($_FILES['filekaryawan']['name'], 0755);
 
     $datas = new Spreadsheet_Excel_Reader($_FILES['filekaryawan']['name'], false);
     $rows = $datas->rowcount($sheet_index = 0);
 
     $succed = 0;
     for ($i = 2; $i <= $rows; $i++) {
-        $nip = $rows->val($i, 1);
-        $nama = $rows->val($i, 2);
-        $jabatan = $rows->val($i, 3);
+        $nip = $datas->val($i, 1);
+        $nama = $datas->val($i, 2);
+        $jabatan = $datas->val($i, 3);
 
         if ($nama != "" && $nip != "" && $jabatan != "") {
-            echo "sukses";
-            echo $nama . " " . $nip . " " . $jabatan;
+            echo $nama . "\n" . $nip . "\n" . $jabatan;
         }
     }
 
     unlink($_FILES['filekaryawan']['name']);
 
-    echo $file_target;
+    // header("location:index.php?page=dashboard");
+
 }

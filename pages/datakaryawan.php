@@ -1,7 +1,7 @@
 <div class="upper-button">
     <div class="flexbox">
         <div>
-            <button class="btn btn-success" data-toggle="modal" data-target="#im-karyawanModal">
+            <button class="btn btn-success" data-toggle="modal" data-target="#mdlkaryawan">
                 <i class="fa fa-file"></i>
                 <span>import file csv/xls</span>
             </button>
@@ -57,7 +57,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="im-karyawanModal" tabindex="-1" role="dialog" aria-labelledby="importkywLabel" aria-hidden="true">
+<div class="modal fade" id="mdlkaryawan" tabindex="-1" role="dialog" aria-labelledby="importkywLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -70,7 +70,7 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" name="filekaryawan" class="custom-file-input" id="customFile" multiple lang="ar" dir="rtl">
+                            <input type="file" name="filekaryawan" class="custom-file-input">
                             <label class="custom-file-label text-left" for="customFile">choose files to upload</label>
                         </div>
                     </div>
