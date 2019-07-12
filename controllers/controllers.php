@@ -1,13 +1,29 @@
 <?php
 
-include "excel_reader2.php";
+include "../utilities/excel_reader2.php";
+include "../utilities/global_string.php";
 
-if (isset($_FILES['filekaryawan'])) { 
-    doUploadExcel();
+// identifikasi perintah
+if (isset($_POST['prefix'])) {
+    switch ($_POST['prefix']) {
+        case "login":
+            doLogin();
+            break;
+        case "nilai":
+            doNilai();
+            break;
+        case "uploadkyw":
+            doUploadExcel();
+            break;
+    }
 }
 
-if (isset($_POST['kualitas'])) {
-    doNilai();
+function doLogin()
+{
+    $usrid = $_POST['userid'];
+    $pwd = $_POST['password'];
+
+    echo $usrid . " " . $pwd;
 }
 
 function doNilai()

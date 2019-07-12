@@ -5,17 +5,35 @@ function updateRangetoText(value, id) {
 //ajax
 $(document).ready(function () {
 
+    var prefix = "";
+
     $().ajaxStart(function () {
         $('#loadinger').show();
     }).ajaxStop(function () {
         $('#loadinger').hide();
     });
 
-    $("#form_penilaian").submit(function () {
+    $("#formlogin").submit(function () {
+        prefix = "login";
+
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: $(this).serialize(),
+            data: $(this).serialize() + "&prefix=" + prefix,
+            success: function (data) {
+                console.log(data);
+            }
+        });
+        return false;
+    });
+
+    $("#form_penilaian").submit(function () {
+        prefix = "nilai";
+
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: $(this).serialize() + "&prefix=" + prefix,
             beforeSend: function () {
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             },
@@ -27,6 +45,8 @@ $(document).ready(function () {
     });
 
     $("#formimport").submit(function () {
+        prefix = "import";
+        
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),

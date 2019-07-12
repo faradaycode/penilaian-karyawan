@@ -63,3 +63,8 @@ section {
 .text-capitalize {
   text-transform: capitalize;
 }
+
+/* custom main */
+.login-head {
+  text-align: left !important;
+}
