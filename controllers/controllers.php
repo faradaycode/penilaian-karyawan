@@ -2,6 +2,7 @@
 
 include "../utilities/excel_reader2.php";
 include "../utilities/global_string.php";
+include "../models/sipeka_model.php";
 
 // identifikasi perintah
 if (isset($_POST['prefix'])) {
@@ -21,9 +22,24 @@ if (isset($_POST['prefix'])) {
 function doLogin()
 {
     $usrid = $_POST['userid'];
-    $pwd = $_POST['password'];
+    $pwd = md5($_POST['password']);
 
-    echo $usrid . " " . $pwd;
+    $login = login($usrid, $pwd);
+
+    // echo $login;
+
+    if ($login->num_rows > 0) {
+        session_start();
+       
+        while ($row = $login->fetch_assoc()) {
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['logedin'] = 1;
+        }
+       
+        echo 1;
+    } else {
+        echo 0;
+    }
 }
 
 function doNilai()

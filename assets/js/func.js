@@ -21,7 +21,11 @@ $(document).ready(function () {
             url: $(this).attr("action"),
             data: $(this).serialize() + "&prefix=" + prefix,
             success: function (data) {
-                console.log(data);
+                if (data === "0") {
+                    alert("Userid salah, silahkan coba dengan userid yang lain");
+                } else {
+                    window.location = "http://localhost/sipeka/views/admin/index.php";
+                }
             }
         });
         return false;
