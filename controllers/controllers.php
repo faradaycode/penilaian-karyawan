@@ -13,7 +13,7 @@ if (isset($_POST['prefix'])) {
         case "nilai":
             doNilai();
             break;
-        case "uploadkyw":
+        case "import":
             doUploadExcel();
             break;
     }
@@ -54,61 +54,88 @@ function doNilai()
     $n_disiplin = $_POST['disiplin'];
     $n_integritas = $_POST['integritas'];
     $n_semangat = $_POST['semangat'];
+
+    $ya = 0;
+    $tidak = 0;
     
-    if ($n_kualitas >= 78) {
+    if ($n_kualitas >= 26) {
         $log_kua = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_kua = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_kuantitas >= 85) {
+    if ($n_kuantitas >= 26) {
         $log_kuw = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_kuw = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_penguasaan >= 86) {
+    if ($n_penguasaan >= 26) {
         $log_pgs = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_pgs = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_kepemimpinan >= 80) {
+    if ($n_kepemimpinan >= 26) {
         $log_kpp = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_kpp = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_kerjasama >= 75) {
+    if ($n_kerjasama >= 26) {
         $log_kjs = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_kjs = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_tanggungjwb >= 80) {
+    if ($n_tanggungjwb >= 26) {
         $log_tgj = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_tgj = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_integritas >= 85) {
+    if ($n_integritas >= 26) {
         $log_itg = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_itg = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_semangat >= 80) {
+    if ($n_semangat >= 26) {
         $log_smg = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_smg = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
     
-    if ($n_disiplin >= 75) {
+    if ($n_disiplin >= 26) {
         $log_dsp = abs(0/1*log2(0/1)) + abs(-1/1*log2(1/1));
+        $ya += 1;
     } else {
         $log_dsp = abs(-1/1*log2(1/1)) + abs(0/1*log2(0/1));
+        $tidak += 1;
     }
-    
+
+    $total = $ya + $tidak;
+
+    $gain_teknis = $total - ((1/$total * $log_kua) + (1/$total * $log_kuw) + (1/$total * $log_pgs));
+    $gain_nonteknis = $total - ((1/$total * $log_kpp) + (1/$total * $log_kjs) + (1/$total * $log_tgj));
+    $gain_pribadi = $total - ((1/$total * $log_itg) + (1/$total * $log_smg) + (1/$total * $log_dsp));
+
     $arr_formu = array(
         "en_kualitas" => $log_kua,
         "en_kuantitas" => $log_kuw,
@@ -118,7 +145,10 @@ function doNilai()
         "en_tgjwb" => $log_tgj,
         "en_integritas" => $log_itg,
         "en_semangat" => $log_smg,
-        "en_disiplin" => $log_dsp
+        "en_disiplin" => $log_dsp,
+        "gain_teknis" => $gain_teknis,
+        "gain_nonteknis" => $gain_nonteknis,
+        "gain_pribadi" => $gain_pribadi,
     );
 
     echo json_encode($arr_formu);
@@ -147,6 +177,8 @@ function doUploadExcel()
                 "jbt" => getJabatan($jabatan),
                 "hari" => $mulaikj
             );
+
+            // echo json_encode($arraydata);
             
             if (importxls($arraydata)) {
                 echo 1;

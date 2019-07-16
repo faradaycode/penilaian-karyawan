@@ -50,11 +50,14 @@ $(document).ready(function () {
 
     $("#formimport").submit(function () {
         prefix = "import";
+        var formdata = new FormData(this);
         
+        console.log(formdata);
+
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: new FormData(this),
+            data: formdata,
             success: function (data) {
                 console.log(data);
             },

@@ -70,7 +70,8 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="custom-file">
-                            <input type="file" name="filekaryawan" class="custom-file-input">
+                            <input type="hidden" name="prefix" value="import" />
+                            <input type="file" id="filekaryawan" name="filekaryawan" class="custom-file-input">
                             <label class="custom-file-label text-left" for="customFile">choose files to upload</label>
                         </div>
                     </div>
