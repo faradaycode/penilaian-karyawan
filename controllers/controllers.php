@@ -131,10 +131,11 @@ function doNilai()
     }
 
     $total = $ya + $tidak;
+    $en_total =  (-$tidak/$total*log2($tidak/$total)) + (-$ya/$total*log2($ya/$total));
 
-    $gain_teknis = $total - ((1/$total * $log_kua) + (1/$total * $log_kuw) + (1/$total * $log_pgs));
-    $gain_nonteknis = $total - ((1/$total * $log_kpp) + (1/$total * $log_kjs) + (1/$total * $log_tgj));
-    $gain_pribadi = $total - ((1/$total * $log_itg) + (1/$total * $log_smg) + (1/$total * $log_dsp));
+    $gain_teknis = $en_total - ((1/$total * $log_kua) + (1/$total * $log_kuw) + (1/$total * $log_pgs));
+    $gain_nonteknis = $en_total - ((1/$total * $log_kpp) + (1/$total * $log_kjs) + (1/$total * $log_tgj));
+    $gain_pribadi = $en_total - ((1/$total * $log_itg) + (1/$total * $log_smg) + (1/$total * $log_dsp));
 
     $arr_formu = array(
         "en_kualitas" => $log_kua,
