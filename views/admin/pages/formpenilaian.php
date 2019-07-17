@@ -1,8 +1,31 @@
 <section id="sec-input-nilai" class="text-capitalize">
-    <div id="loadinger" class="loading-container">
+    <!-- <div id="loadinger" class="loading-container">
         <img src="./assets/imgs/loading.gif" />
-    </div>
+    </div> -->
     <form id="form_penilaian" action="../../controllers/controllers.php" name="form_penilaian" method="POST">
+        <div class="tile">
+            <div class="tile-body">
+                <div class="form-group text-capitalize">
+                    <label for="selkaryawan">nama karyawan</label>
+                    <select name="selkaryawan" id="selkaryawan" class="form-control">
+                        <option value="0" selected>Pilih Karyawan</option>
+                        <?php
+                        include_once "../../utilities/config.php";
+
+                        $koneksi = openConnection();
+                        $sql = "SELECT * FROM karyawans";
+                        $exec = $koneksi->query($sql);
+
+                        while ($row = $exec->fetch_assoc()) {
+                            echo "<option value='".$row['id_k']."'>".$row['nama_k']."</option>";
+                        }
+
+                        closeConnection($koneksi);
+                        ?>
+                    </select>
+                </div>
+            </div>
+        </div>
         <div class="tile">
             <div class="tile-title">kemampuan teknis</div>
             <div class="tile-body">

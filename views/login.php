@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 
-<?php include "../utilities/global_string.php"; ?>
+<?php 
+session_start();
+include "../utilities/global_string.php"; ?>
 
 <!-- header, css, meta -->
 <head>

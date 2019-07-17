@@ -27,30 +27,29 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Edinburgh</td>
+                <?php
+                include_once "../../utilities/config.php";
+
+                $koneksi = openConnection();
+                $sql = "SELECT a.id_k, a.nip_k, a.nama_k, a.id_j, 
+                (SELECT b.nama_j FROM jabatans b WHERE b.id_j=a.id_j) AS nama_jabatan FROM karyawans a";
+                $exec = $koneksi->query($sql);
+
+                while ($row = $exec->fetch_assoc()) { 
+                    echo "<tr>
+                    <td>".$row['nip_k']."</td>
+                    <td>".$row['nama_k']."</td>
+                    <td>".$row['nama_jabatan']."</td>
                     <td>
-                        <div class="flexbox">
-                            <div>
-                                <button class="btn btn-sm btn-info">
-                                    Nilai
-                                </button>
-                            </div>
-                            <div>
-                                <button class="btn btn-sm btn-primary">
-                                    Edit
-                                </button>
-                            </div>
-                            <div>
-                                <button class="btn btn-sm btn-danger">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
+                    <button class='btn btn-danger btn-sm'>Hapus</button>
+                    <button class='btn btn-success btn-sm'>Edit</button>
+                    <button class='btn btn-info btn-sm'>Lihat</button>
                     </td>
-                </tr>
+                    </tr>";
+                }
+
+                closeConnection($koneksi);
+                ?>
             </tbody>
         </table>
     </div>
@@ -98,7 +97,7 @@
             <form action="./controllers/controllers.php" id="forminputk" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" /> 
+                        <input type="text" class="form-control" />
                     </div>
                 </div>
                 <div class="modal-footer">

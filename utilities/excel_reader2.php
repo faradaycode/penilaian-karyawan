@@ -76,10 +76,10 @@ function GetInt4d($data, $pos) {
 // http://uk.php.net/manual/en/function.getdate.php
 function gmgetdate($ts = null){
 	$k = array('seconds','minutes','hours','mday','wday','mon','year','yday','weekday','month',0);
-	return(array_comb($k,split(":",gmdate('s:i:G:j:w:n:Y:z:l:F:U',is_null($ts)?time():$ts))));
+	return(array_comb($k,explode(":",gmdate('s:i:G:j:w:n:Y:z:l:F:U',is_null($ts)?time():$ts))));
 	} 
 
-// Added for PHP4 compatibility
+// Added for PHP4 compatibility	
 function array_comb($array1, $array2) {
 	$out = array();
 	foreach ($array1 as $key => $value) {
@@ -912,7 +912,9 @@ class Spreadsheet_Excel_Reader {
 	 *
 	 * Some basic initialisation
 	 */
-	function Spreadsheet_Excel_Reader($file='',$store_extended_info=true,$outputEncoding='') {
+	
+	// function Spreadsheet_Excel_Reader($file='',$store_extended_info=true,$outputEncoding='') {
+	function __construct($file='',$store_extended_info=true,$outputEncoding='') {
 		// $this->_ole =& new OLERead();
 		$this->_ole = new OLERead();
 		$this->setUTFEncoder('iconv');
@@ -1734,5 +1736,3 @@ class Spreadsheet_Excel_Reader {
 	}
 
 }
-
-?>

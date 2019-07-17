@@ -1,4 +1,6 @@
-<div class="tile">
+<a class="btn btn-primary" href="./pages/cetak.php" target="_BLANK">Cetak Laporan</a>
+
+<div class="tile mt-2">
     <div class="tile-body">
         <table class="table table-hover table-bordered" id="tb_datakyw">
             <thead>
