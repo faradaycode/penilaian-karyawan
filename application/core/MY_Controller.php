@@ -8,7 +8,7 @@ class MY_Controller extends CI_Controller
         parent::__construct();
         
         // Cek apakah terdapat session dengan nama authenticated
-        if (!$this->session->userdata('authenticated')) {
+        if (!$this->session->userdata('logedin')) {
             redirect('auth'); // Redirect ke halaman login
         }
     }

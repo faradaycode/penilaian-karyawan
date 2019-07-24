@@ -1,29 +1,8 @@
 <!DOCTYPE html>
 <html>
 
-<!-- header, css, meta -->
-<head>
-  <meta name="description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-  <!-- FB meta-->
-  <meta content='https://www.facebook.com/rezaferdi.simple' property='article:author' />
-  <!-- Generator Meta-->
-  <meta name="title" content="penilaian-karyawan">
-  <meta name="description" content="web app untuk penilaian karyawan memakai algoritma c45 untuk pengambilan keputusan">
-  <meta name="keywords" content="penilaian-karyawan, skripsi, c45, ubhara-jaya">
-  <meta name="robots" content="noindex, follow">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta name="language" content="English">
-  <meta name="author" content="verdition96">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Main CSS-->
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/main.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/custom.css'); ?>">
-
-  <!-- Font-icon css-->
-  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
+<!-- load partials head -->
+<?php $this->view('partials/head'); ?>
 
 <body>
   <section class="material-half-bg">
@@ -32,19 +11,23 @@
 
   <section class="login-content">
     <div class="logo">
-      <h1><?php echo base_url(); ?></h1>
+      <h1><?php echo APPNAME; ?></h1>
     </div>
     <div class="login-box">
-
-      <form class="login-form" id="formlogin" method="post" action="<?php echo base_url('Auth/login'); ?>">
+      <form class="login-form" id="formlogin" method="post" action="<?php echo base_url('Login/meLogin'); ?>">
         <h4 class="login-head font-weight-light font-italic text-muted"></i>Login</h4>
+        <?php if (isset($error)) {
+          echo $error;
+        }; ?>
         <div class="form-group">
           <label class="control-label">USERID</label>
-          <input name="userid" class="form-control" type="text" placeholder="Userid" autofocus>
+          <input name="userid" class="form-control" type="text" placeholder="Userid" autofocus />
+          <?php echo form_error('userid'); ?>
         </div>
         <div class="form-group">
           <label class="control-label">PASSWORD</label>
-          <input name="password" class="form-control" type="password" placeholder="Password">
+          <input name="password" class="form-control" type="password" placeholder="Password" />
+          <?php echo form_error('password'); ?>
         </div>
         <div class="form-group">
           <div class="utility">
@@ -78,14 +61,11 @@
     </div>
   </section>
 
-  <!-- script/js here -->
-  <script src="<?php echo base_url(); ?>assets/js/jquery-3.2.1.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/popper.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
-  <script src="<?php echo base_url(); ?>assets/js/main.js"></script>
+  <!-- partials scripts -->
+  <?php $this->view('partials/scripts'); ?>
 
-  <!-- The javascript plugin to display page loading on top-->
-  <script src="<?php echo base_url(); ?>assets/js/plugins/pace.min.js"></script>
+  <!-- additional effect, flip -->
+
   <script type="text/javascript">
     // Login Page Flipbox control
     $('.login-content [data-toggle="flip"]').click(function() {
