@@ -19,20 +19,20 @@
         <!--dropdown -->
         <li class="treeview">
             <a class="app-menu__item" href="#" data-toggle="treeview">
-                <i class="app-menu__icon fa fa-users"></i>
+                <i class="app-menu__icon fa fa-archive"></i>
                 <span class="app-menu__label">Master Karyawan</span>
                 <i class="treeview-indicator fa fa-angle-right"></i>
             </a>
             <ul class="treeview-menu">
                 <li>
                     <a class="treeview-item" href="<?php echo base_url('Pages/data-karyawan'); ?>">
-                        <i class="icon fa fa-star-o"></i>
+                        <i class="icon fa fa-users"></i>
                         <span>Data Karyawan</span>
                     </a>
                 </li>
                 <li>
                     <a class="treeview-item" href="<?php echo base_url('Pages/data-nilai'); ?>">
-                        <i class="icon fa fa-star-o"></i>
+                        <i class="icon fa fa-book"></i>
                         <span>Data Penilaian</span>
                     </a>
                 </li>
@@ -40,7 +40,7 @@
         </li>
         <li>
             <a class="app-menu__item" href="<?php echo base_url('Pages/penilaian'); ?>">
-                <i class="app-menu__icon fa fa-check-circle"></i>
+                <i class="app-menu__icon fa fa-bar-chart"></i>
                 <span class="app-menu__label">Penilaian</span>
             </a>
         </li>

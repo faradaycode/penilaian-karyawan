@@ -93,3 +93,11 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |
 */
 define("APPNAME", "SIPEKA");
+define("DASHBOARD", "dashboard");
+define("DATAKARYAWAN", "data karyawan");
+define("DATANILAI", "data penilaian");
+define("PENILAIAN", "form penilaian");
+define("IC_DASHBOARD", "fa-dashboard");
+define("IC_DTKARYAWAN", "fa-users");
+define("IC_DTNILAI", "fa-book");
+define("IC_FMNILAI", "fa-bar-chart");

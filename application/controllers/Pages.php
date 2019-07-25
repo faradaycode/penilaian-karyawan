@@ -7,6 +7,8 @@ class Pages extends CI_Controller
     public function admin()
     {
         $data['content'] = $this->load->view('admin/dashboard', null, true);
+        $data['icon'] = IC_DASHBOARD;
+        $data['pagename'] = DASHBOARD;
         $this->load->view('admin/index', $data);
     }
 
