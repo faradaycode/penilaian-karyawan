@@ -27,11 +27,6 @@ class Login extends CI_Controller
 		$this->load->model("ModLogin");
 	}
 
-	public function index()
-	{
-		$this->load->view('login');
-	}
-
 	public function meLogin()
 	{
 		//set validation rules
@@ -70,7 +65,7 @@ class Login extends CI_Controller
 				}
 
 				//go to dashboard
-				redirect(base_url("index.php/Pages"));
+				redirect(base_url("index.php/Pages/admin"));
 			} else {
 				$data['error'] = 
 				'<small class="text-capitalize text-danger">

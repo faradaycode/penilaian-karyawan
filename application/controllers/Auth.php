@@ -30,7 +30,7 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('logedin')) {
 			redirect(base_url('Pages/admin'));
 		} else {
-			redirect(base_url('Login'));
+			redirect(base_url('Pages/login'));
 		}
 	}
 }

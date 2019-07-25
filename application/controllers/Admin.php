@@ -12,26 +12,6 @@ class Admin extends CI_Controller
         // $this->load->model('admin');
     }
 
-    public function index()
-    {
-        //load dashboard view
-    }
-
-    public function penilaian()
-    {
-        //load form penilaian
-    }
-
-    public function masterKaryawan()
-    {
-        //load data karyawan view
-    }
-
-    public function masterNilai()
-    {
-        //load data penilaian masuk
-    }
-
     public function printReportPerson()
     {
         //function fpdf nilai perorangan
