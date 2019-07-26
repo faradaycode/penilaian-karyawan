@@ -25,13 +25,13 @@
             </a>
             <ul class="treeview-menu">
                 <li>
-                    <a class="treeview-item" href="<?php echo base_url('Pages/data-karyawan'); ?>">
+                    <a class="treeview-item" href="<?php echo base_url('Pages/datakaryawan'); ?>">
                         <i class="icon fa fa-users"></i>
                         <span>Data Karyawan</span>
                     </a>
                 </li>
                 <li>
-                    <a class="treeview-item" href="<?php echo base_url('Pages/data-nilai'); ?>">
+                    <a class="treeview-item" href="<?php echo base_url('Pages/datanilai'); ?>">
                         <i class="icon fa fa-book"></i>
                         <span>Data Penilaian</span>
                     </a>

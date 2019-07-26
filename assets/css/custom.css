@@ -68,3 +68,7 @@ section {
 .login-head {
   text-align: left !important;
 }
+
+#tb_datanilai th {
+  vertical-align: middle;
+}

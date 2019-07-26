@@ -22,13 +22,19 @@ class Pages extends CI_Controller
         //load form penilaian
     }
 
-    public function masterKaryawan()
+    public function datakaryawan()
     {
-        //load data karyawan view
+        $data['content'] = $this->load->view('admin/datakaryawan', null, true);
+        $data['icon'] = IC_DTKARYAWAN;
+        $data['pagename'] = DATAKARYAWAN;
+        $this->load->view('admin/index', $data);
     }
 
-    public function masterNilai()
+    public function datanilai()
     {
-        //load data penilaian masuk
+        $data['content'] = $this->load->view('admin/datapenilaian', null, true);
+        $data['icon'] = IC_DTNILAI;
+        $data['pagename'] = DATANILAI;
+        $this->load->view('admin/index', $data);
     }
 }
