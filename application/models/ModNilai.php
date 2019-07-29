@@ -1,12 +1,11 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class ModKaryawan extends CI_Model
+class ModNilai extends CI_Model
 {
-
-    var $table = 'karyawans';
-    var $column_order = array('nip_k', 'nama_k'); //field yang ada di table user
-    var $column_search = array('nip_k', 'nama_k'); //field yang diizin untuk pencarian 
-    var $order = array('nama_k' => 'asc'); // default order 
+    //field yang ada di table user
+    var $column_order = array('a.nip_k', 'a.nama_k', 'b.aspek_teknis', 'b.aspek_nonteknis', 'b.aspek_pribadi');
+    var $column_search = array('a.nip_k', 'a.nama_k'); //field yang diizin untuk pencarian 
+    var $order = array('a.nama_k' => 'asc'); // default order 
 
     public function __construct()
     {
@@ -14,19 +13,25 @@ class ModKaryawan extends CI_Model
         $this->load->database();
     }
 
-    function get_all_karyawans()
+    function get_all_nilai()
     {
-        $this->db->select("*");
-        $this->db->from($this->table);
-        $result = $this->db->get();
+        $sql = "SELECT a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi 
+        FROM karyawans a LEFT JOIN nilais b ON a.id_k = b.id_k";
+
+        $result = $this->db->query($sql);
 
         return $result->result();
     }
 
     private function _get_datatables_query()
     {
+        // $sql = "SELECT a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi 
+        // FROM karyawans a LEFT JOIN nilais b ON a.id_k = b.id_k";
 
-        $this->db->from($this->table);
+        $this->db->select("a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi");
+        $this->db->from("karyawans a");
+        $this->db->join("nilais b", "a.id_k = b.id_k");
+        // $this->db->query($sql);
 
         $i = 0;
 
@@ -83,7 +88,9 @@ class ModKaryawan extends CI_Model
 
     public function count_all()
     {
-        $this->db->from($this->table);
+        $this->db->select("a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi");
+        $this->db->from("karyawans a");
+        $this->db->join("nilais b", "a.id_k = b.id_k");
 
         return $this->db->count_all_results();
     }

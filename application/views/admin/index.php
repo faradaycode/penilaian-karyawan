@@ -76,6 +76,42 @@
                     "type": "POST"
                 }
             });
+
+            //page data nilai
+            $('#tb_datanilai').DataTable({
+                "columnDefs": [{
+                        "width": "5%",
+                        "targets": 0
+                    },
+                    {
+                        "width": "13%",
+                        "targets": 1
+                    },
+                    {
+                        "width": "15%",
+                        "targets": 3
+                    },
+                    {
+                        "width": "7%",
+                        "targets": 4
+                    },
+                    {
+                        "width": "7%",
+                        "targets": 5
+                    },
+                    {
+                        "width": "7%",
+                        "targets": 6
+                    },
+                ],
+                "processing": true,
+                "serverSide": true,
+                "order": [],
+                "ajax": {
+                    "url": "<?php echo base_url('index.php/Nilai/get_data_user'); ?>",
+                    "type": "POST"
+                }
+            });
         });
     </script>
 </body>

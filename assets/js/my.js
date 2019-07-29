@@ -4,16 +4,7 @@ function updateRangetoText(value, id) {
 
 //ajax
 $(document).ready(function () {
-    $('#tb_datanilai').DataTable({
-        "columnDefs": [
-            {"width": "5%", "targets": 0},
-            {"width": "13%", "targets": 1},
-            {"width": "15%", "targets": 3},
-            {"width": "7%", "targets": 4},
-            {"width": "7%", "targets": 5},
-            {"width": "7%", "targets": 6},
-        ]
-    });
+    
 
     var prefix = "";
 
