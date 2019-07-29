@@ -17,10 +17,10 @@
     </div>
 
     <div class="tile">
-        <div class="tile-body">
+        <div class="tile-body table-responsive">
             <table class="table table-hover table-bordered" id="tb_datakyw">
                 <thead>
-                    <tr>
+                    <tr class="table-success">
                         <th>No</th>
                         <th>NIK</th>
                         <th>Nama</th>
@@ -29,29 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                //     include_once "../../utilities/config.php";
-
-                //     $koneksi = openConnection();
-                //     $sql = "SELECT a.id_k, a.nip_k, a.nama_k, a.id_j, 
-                // (SELECT b.nama_j FROM jabatans b WHERE b.id_j=a.id_j) AS nama_jabatan FROM karyawans a";
-                //     $exec = $koneksi->query($sql);
-
-                //     while ($row = $exec->fetch_assoc()) {
-                //         echo "<tr>
-                //     <td>" . $row['nip_k'] . "</td>
-                //     <td>" . $row['nama_k'] . "</td>
-                //     <td>" . $row['nama_jabatan'] . "</td>
-                //     <td>
-                //     <button class='btn btn-danger btn-sm'>Hapus</button>
-                //     <button class='btn btn-success btn-sm'>Edit</button>
-                //     <button class='btn btn-info btn-sm'>Lihat</button>
-                //     </td>
-                //     </tr>";
-                    // }
-
-                    // closeConnection($koneksi);
-                    ?>
+                
                 </tbody>
             </table>
         </div>

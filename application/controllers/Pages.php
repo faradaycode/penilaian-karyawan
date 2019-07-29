@@ -17,17 +17,23 @@ class Pages extends CI_Controller
         $this->load->view('login');
     }
 
-    public function penilaian()
-    {
-        //load form penilaian
-    }
-
     public function datakaryawan()
     {
         $data['content'] = $this->load->view('admin/datakaryawan', null, true);
         $data['icon'] = IC_DTKARYAWAN;
         $data['pagename'] = DATAKARYAWAN;
         $this->load->view('admin/index', $data);
+    }
+
+    public function penilaian()
+    {
+        $this->load->model("ModKaryawan");
+
+        $data['icon'] = IC_FMNILAI;
+        $data['pagename'] = PENILAIAN;
+        $data['dtkyw'] = $this->ModKaryawan->get_all_karyawans();
+                
+        $this->load->view('admin/formpenilaian', $data);
     }
 
     public function datanilai()

@@ -78,21 +78,6 @@ class Login extends CI_Controller
 			// validation failure run this
 			$this->load->view('login');
 		}
-
-
-		// if (empty($user)) { // Jika hasilnya kosong / user tidak ditemukan
-		// 	$this->session->set_flashdata('message', 'Username tidak ditemukan'); // Buat session flashdata
-		// 	redirect('Auth'); // Redirect ke halaman login
-		// } else {
-
-		// 	$session = array(
-		// 		'logedin' => true,
-		// 		'username' => $user->username
-		// 	);
-
-		// 	$this->session->set_userdata($session); // Buat session sesuai $session
-		// 	redirect('index.php/Pages/admin'); // Redirect ke halaman welcome
-		// }
 	}
 
 	public function meLogout()

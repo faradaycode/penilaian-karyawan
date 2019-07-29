@@ -4,17 +4,6 @@ function updateRangetoText(value, id) {
 
 //ajax
 $(document).ready(function () {
-
-    //set datatables
-    $('#tb_datakyw').DataTable({
-        "columnDefs": [
-            {"width": "5%", "targets": 0},
-            {"width": "15%", "targets": 1},
-            {"width": "15%", "targets": 3},
-            {"width": "25%", "targets": 4},
-        ]
-    });
-
     $('#tb_datanilai').DataTable({
         "columnDefs": [
             {"width": "5%", "targets": 0},
