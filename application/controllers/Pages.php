@@ -28,10 +28,12 @@ class Pages extends CI_Controller
     public function penilaian()
     {
         $this->load->model("ModKaryawan");
+        $this->load->model("ModPertanyaan");
 
         $data['icon'] = IC_FMNILAI;
         $data['pagename'] = PENILAIAN;
         $data['dtkyw'] = $this->ModKaryawan->get_all_karyawans();
+        $data['dtpty'] = $this->ModPertanyaan->getTanya();
                 
         $this->load->view('admin/formpenilaian', $data);
     }

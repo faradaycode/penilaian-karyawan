@@ -23,9 +23,9 @@ class Nilai extends CI_Controller
             $row[] = $field->nip_k;
             $row[] = $field->nama_k;
             $row[] = $field->id_j;
-            $row[] = $field->aspek_teknis;
-            $row[] = $field->aspek_nonteknis;
-            $row[] = $field->aspek_pribadi;
+            $row[] = $field->n_teknis;
+            $row[] = $field->n_nonteknis;
+            $row[] = $field->n_pribadi;
 
             $data[] = $row;
         }

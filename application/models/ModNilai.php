@@ -3,7 +3,7 @@
 class ModNilai extends CI_Model
 {
     //field yang ada di table user
-    var $column_order = array('a.nip_k', 'a.nama_k', 'b.aspek_teknis', 'b.aspek_nonteknis', 'b.aspek_pribadi');
+    var $column_order = array('a.nip_k', 'a.nama_k', 'b.n_teknis', 'b.n_nonteknis', 'b.n_pribadi');
     var $column_search = array('a.nip_k', 'a.nama_k'); //field yang diizin untuk pencarian 
     var $order = array('a.nama_k' => 'asc'); // default order 
 
@@ -15,7 +15,7 @@ class ModNilai extends CI_Model
 
     function get_all_nilai()
     {
-        $sql = "SELECT a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi 
+        $sql = "SELECT a.*, b.n_teknis, b.n_nonteknis, b.n_pribadi 
         FROM karyawans a LEFT JOIN nilais b ON a.id_k = b.id_k";
 
         $result = $this->db->query($sql);
@@ -25,10 +25,10 @@ class ModNilai extends CI_Model
 
     private function _get_datatables_query()
     {
-        // $sql = "SELECT a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi 
+        // $sql = "SELECT a.*, b.n_teknis, b.n_nonteknis, b.n_pribadi 
         // FROM karyawans a LEFT JOIN nilais b ON a.id_k = b.id_k";
 
-        $this->db->select("a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi");
+        $this->db->select("a.*, b.n_teknis, b.n_nonteknis, b.n_pribadi");
         $this->db->from("karyawans a");
         $this->db->join("nilais b", "a.id_k = b.id_k");
         // $this->db->query($sql);
@@ -88,7 +88,7 @@ class ModNilai extends CI_Model
 
     public function count_all()
     {
-        $this->db->select("a.*, b.aspek_teknis, b.aspek_nonteknis, b.aspek_pribadi");
+        $this->db->select("a.*, b.n_teknis, b.n_nonteknis, b.n_pribadi");
         $this->db->from("karyawans a");
         $this->db->join("nilais b", "a.id_k = b.id_k");
 
