@@ -51,30 +51,33 @@
                 </div>
 
                 <!-- pertanyaan -->
-                <div class="tile">
-
-                    <!-- <div class="tile-title"><?php //echo $tanya->aspek_ket; 
-                                                    ?></div> -->
-                    <?php
-                    $ni = 1;
-                    foreach ($dtpty as $tanya) { ?>
-                        <div class="tile-body">
-                            <div class="form-group">
-                                <label><?php echo $ni . ". " . $tanya->isi_pertanyaan; ?></label>
-                                <div class="row">
-                                    <div class="col-11">
-                                        <input type="range" value="0" min="0" max="100" class="form-control-range" id="sld_kualitas" oninput="updateRangetoText(this.value, 'ite_kualitas')">
-                                    </div>
-                                    <div class="col-1">
-                                        <input type="text" value="0" name="pty<?php echo $tanya->id_pty; ?>" class="form-control form-control-plaintext" id="ite_kualitas" readonly>
+                <?php
+                foreach (json_decode($dtpty) as $keys) {
+                    ?>
+                    <div class="tile">
+                        <div class="tile-title"><?php echo $keys->aspek_ket; ?></div>
+                        <?php
+                        $ni = 1;
+                        foreach ($keys->isi as $values) { ?>
+                            <div class="tile-body">
+                                <div class="form-group">
+                                    <label>
+                                        <?php echo $ni . ". " . $values->pertanyaan; ?>
+                                    </label>
+                                    <div class="row">
+                                        <div class="col-11">
+                                            <input type="range" value="0" min="0" max="100" class="form-control-range" id="sld_kualitas" oninput="updateRangetoText(this.value, 'ite_kualitas')">
+                                        </div>
+                                        <div class="col-1">
+                                            <input type="text" value="0" name="pty<?php echo $values->id_pty; ?>" class="form-control form-control-plaintext" id="ite_kualitas" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <?php $ni++;
-                    } ?>
-                </div>
-
+                            <?php $ni++;
+                        } ?>
+                    </div>
+                <?php } ?>
                 <input type="submit" class="btn btn-success" value="Submit" />
             </form>
         </main>
