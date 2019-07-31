@@ -94,4 +94,20 @@ class ModNilai extends CI_Model
 
         return $this->db->count_all_results();
     }
+
+    /* penilaian simpan function */
+    function postNilai($arrayValue, $id_karyawan)
+    {
+        $pty = 1;
+
+        foreach ($arrayValue as $nilais) {
+            $sql = "INSERT INTO nilai_detail (id_nd, id_k, id_pty, id_aspek, bobot_nilai) 
+            VALUES (null, $id_karyawan, $pty, 
+            (SELECT id_aspek FROM pertanyaans WHERE id_pty = $pty), $nilais)";
+
+            $pty++;
+
+            $this->db->query($sql);
+        }
+    }
 }

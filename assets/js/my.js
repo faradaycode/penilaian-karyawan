@@ -4,15 +4,14 @@ function updateRangetoText(value, id) {
 
 //ajax
 $(document).ready(function () {
-    
 
     var prefix = "";
 
-    $().ajaxStart(function () {
-        $('#loadinger').show();
-    }).ajaxStop(function () {
-        $('#loadinger').hide();
-    });
+    // $().ajaxStart(function () {
+    //     $('#loadinger').show();
+    // }).ajaxStop(function () {
+    //     $('#loadinger').hide();
+    // });
 
     $("#form_penilaian").submit(function () {
         prefix = "nilai";
