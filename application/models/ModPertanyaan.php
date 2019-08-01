@@ -9,23 +9,38 @@ class ModPertanyaan extends CI_Model
         a.id_aspek = b.id_aspek";
         $query = $this->db->query($sql);
         $res = $query->result();
-        // $data = array();
-        // $aspek = array();
-        // $obj = new stdClass();
+        $jsout = array();
 
-        // foreach ($res as $rows) {
-        //     foreach {
-        //         array_push(
-        //             $data,
-        //             array(
-        //                 "id_pty" => $rows->id_pty,
-        //                 "pertanyaan" => $rows->isi_pertanyaan
-        //             )
-        //         );
-        //     }
-        // }
+        foreach ($res as $objp) {
+            if (!array_key_exists($objp->id_aspek, $jsout)) {
+                $exObj = new stdClass();
 
-        // return $query->result();
-        return $res;
+                $exObj->id_aspek = $objp->id_aspek;
+                $exObj->aspek_ket = $objp->aspek_ket;
+                $exObj->isi = array();
+
+                $jsout[$objp->id_aspek] = $exObj;
+            }
+
+            $insideObj = new stdClass();
+
+            $insideObj->id_pty = $objp->id_pty;
+            $insideObj->pertanyaan = $objp->isi_pertanyaan;
+
+            $jsout[$objp->id_aspek]->isi[] = $insideObj;
+        }
+
+        $jsout = array_values($jsout);
+
+        return json_encode($jsout);
+    }
+
+    function getIdPty()
+    {
+        $this->db->select("id_pty");
+        $this->db->from("pertanyaans");
+        $query = $this->db->get();
+
+        return $query->result();
     }
 }

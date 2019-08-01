@@ -33,31 +33,7 @@ class Pages extends CI_Controller
         $data['icon'] = IC_FMNILAI;
         $data['pagename'] = PENILAIAN;
         $data['dtkyw'] = $this->ModKaryawan->get_all_karyawans();
-        // $data['dtpty'] = $this->ModPertanyaan->getTanya();
-        $pertanyaan = $this->ModPertanyaan->getTanya();
-        $jsout = array();
-
-        foreach ($pertanyaan as $objp) {
-            if (!array_key_exists($objp->id_aspek, $jsout)) {
-                $exObj = new stdClass();
-
-                $exObj->id_aspek = $objp->id_aspek;
-                $exObj->aspek_ket = $objp->aspek_ket;
-                $exObj->isi = array();
-                
-                $jsout[$objp->id_aspek] = $exObj;
-            }
-
-            $insideObj = new stdClass();
-
-            $insideObj->id_pty = $objp->id_pty;
-            $insideObj->pertanyaan = $objp->isi_pertanyaan;
-
-            $jsout[$objp->id_aspek]->isi[] = $insideObj;
-        }
-
-        $jsout = array_values($jsout);
-        $data['dtpty'] = json_encode($jsout);
+        $data['dtpty'] = $this->ModPertanyaan->getTanya();
 
         $this->load->view('admin/formpenilaian', $data);
     }

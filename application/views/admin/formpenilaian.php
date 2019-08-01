@@ -69,6 +69,7 @@
                                             <input type="range" value="0" min="0" max="100" class="form-control-range" id="sld_kualitas" oninput="updateRangetoText(this.value, 'ite<?php echo $values->id_pty; ?>')">
                                         </div>
                                         <div class="col-1">
+                                            <!-- nilai value of pertanyaan -->
                                             <input type="text" value="0" name="pty<?php echo $values->id_pty; ?>" class="form-control form-control-plaintext" id="ite<?php echo $values->id_pty; ?>" readonly>
                                         </div>
                                     </div>

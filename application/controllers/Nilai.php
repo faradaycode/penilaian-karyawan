@@ -8,6 +8,7 @@ class Nilai extends CI_Controller
     {
         parent::__construct();
         $this->load->model('ModNilai');
+        $this->load->model('ModPertanyaan');
     }
 
     function get_data_user()
@@ -43,6 +44,7 @@ class Nilai extends CI_Controller
 
     function postNilai()
     {
+        // nilai pertanyaans
         $pt1 = $this->input->post("pty1");
         $pt2 = $this->input->post("pty2");
         $pt3 = $this->input->post("pty3");
@@ -69,7 +71,10 @@ class Nilai extends CI_Controller
         // );
 
         $arrHasil = array(
-            $pt1, $pt2, $pt3, $pt4,
+            $pt1, 
+            $pt2, 
+            $pt3, 
+            $pt4,
             $pt5,
             $pt6,
             $pt7,
@@ -80,6 +85,5 @@ class Nilai extends CI_Controller
 
         $this->ModNilai->postNilai($arrHasil, $id_k);
         // echo json_encode($arrHasil);
-
     }
 }

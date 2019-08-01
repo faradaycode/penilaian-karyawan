@@ -105,9 +105,15 @@ class ModNilai extends CI_Model
             VALUES (null, $id_karyawan, $pty, 
             (SELECT id_aspek FROM pertanyaans WHERE id_pty = $pty), $nilais)";
 
-            $pty++;
-
             $this->db->query($sql);
+
+            $pty++;
         }
+
+        //query nanti buat trigger
+        //INSERT INTO nilais(id_n, id_k, n_teknis, n_nonteknis, n_pribadi) 
+// VALUES(null, 1, (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=1 AND id_k=1), 
+// (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=2 AND id_k=1), 
+// (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=3 AND id_k=1));
     }
 }
