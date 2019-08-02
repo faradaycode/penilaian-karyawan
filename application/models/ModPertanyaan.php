@@ -6,7 +6,7 @@ class ModPertanyaan extends CI_Model
     public function getTanya()
     {
         $sql = "SELECT a.*, b.* FROM pertanyaans a JOIN aspek_nilai b ON 
-        a.id_aspek = b.id_aspek";
+        a.id_aspek = b.id_aspek ORDER BY a.id_aspek ASC";
         $query = $this->db->query($sql);
         $res = $query->result();
         $jsout = array();

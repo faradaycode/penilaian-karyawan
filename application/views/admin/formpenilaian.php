@@ -70,7 +70,8 @@
                                         </div>
                                         <div class="col-1">
                                             <!-- nilai value of pertanyaan -->
-                                            <input type="text" value="0" name="pty<?php echo $values->id_pty; ?>" class="form-control form-control-plaintext" id="ite<?php echo $values->id_pty; ?>" readonly>
+                                            <input type="text" value="0" name="pty<?php echo $ni; ?>" class="form-control form-control-plaintext" id="ite<?php echo $values->id_pty; ?>" readonly>
+                                            <input type="hidden" value="<?php echo $values->id_pty; ?>" name="id<?php echo $ni; ?>" />
                                         </div>
                                     </div>
                                 </div>

@@ -100,14 +100,15 @@ class ModNilai extends CI_Model
     {
         $pty = 1;
 
-        foreach ($arrayValue as $nilais) {
-            $sql = "INSERT INTO nilai_detail (id_nd, id_k, id_pty, id_aspek, bobot_nilai) 
-            VALUES (null, $id_karyawan, $pty, 
-            (SELECT id_aspek FROM pertanyaans WHERE id_pty = $pty), $nilais)";
+        foreach ($arrayValue as $nilais => $isi) {
+            echo $nilais.":". $nilais->$isi;
+            // $sql = "INSERT INTO nilai_detail (id_nd, id_k, id_pty, id_aspek, bobot_nilai) 
+            // VALUES (null, $id_karyawan, $pty, 
+            // (SELECT id_aspek FROM pertanyaans WHERE id_pty = $pty), $nilais)";
 
-            $this->db->query($sql);
+            // $this->db->query($sql);
 
-            $pty++;
+            // $pty++;
         }
 
         //query nanti buat trigger
