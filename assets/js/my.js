@@ -15,9 +15,7 @@ function getFormData($form) {
 
 //ajax
 $(document).ready(function () {
-
-    var pesan = "";
-
+    
     $(document).ajaxStart(function () {
         $('#loadinger').show();
     });
@@ -44,11 +42,10 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $("#form_penilaian")[0].reset();
-                pesan = response.pesan;
-                console.log(response);
+                alert(response.pesan);
             },
-            complete: function (data) {
-                alert(pesan);
+            error: function (xhr, status, error) {
+                alert(error);
             }
         });
         return false;

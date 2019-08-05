@@ -102,6 +102,7 @@ class ModNilai extends CI_Model
         $this->db->where("id_k=" . $id_karyawan);
         $cnt = $this->db->get("nilais");
 
+        $Ssql = "";
         $values = array();
 
         foreach ($nilai as $value) {
@@ -117,32 +118,32 @@ class ModNilai extends CI_Model
             ));
         }
 
-        // if ($cnt->num_rows() == 0) {
-        $this->db->trans_begin();
+        if ($cnt->num_rows() == 0) {
+            $this->db->trans_begin();
 
-        $res = $this->db->insert_batch("nilai_detail", $values);
+            $res = $this->db->insert_batch("nilai_detail", $values);
 
-        if ($res) {
-            $sql = "INSERT INTO nilais(id_n, id_k, n_teknis, n_nonteknis, n_pribadi) 
-            VALUES(null, $id_karyawan, 
-            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=1 AND id_k=$id_karyawan), 
-            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=2 AND id_k=$id_karyawan), 
-            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=3 AND id_k=$id_karyawan))";
+            if ($res) {
+                $Ssql = "INSERT INTO nilais(id_n, id_k, n_teknis, n_nonteknis, n_pribadi) 
+                VALUES(null, $id_karyawan, 
+                (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=1 AND id_k=$id_karyawan), 
+                (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=2 AND id_k=$id_karyawan), 
+                (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=3 AND id_k=$id_karyawan))";
+            }
 
-            $qry = $this->db->query($sql);
-        }
+            $this->db->query($Ssql);
 
-        if ($this->db->trans_status() === false) {
-            $this->db->trans_rollback();
+            if ($this->db->trans_status() === false) {
+                $this->db->trans_rollback();
 
-            return false;
+                return false;
+            } else {
+                $this->db->trans_commit();
+
+                return true;
+            }
         } else {
-            $this->db->trans_commit();
-
-            return true;
+            return false;
         }
-        // } else { 
-        //     return false;
-        // }
     }
 }

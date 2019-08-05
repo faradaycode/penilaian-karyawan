@@ -51,39 +51,32 @@ class Nilai extends CI_Controller
         $iter = 0;
         $result = array();
 
-        if (!empty($id_k)) {
-            if (sizeof($ids) == sizeof($nilai)) {
-                foreach ($ids as $id) {
-                    $newObj = new stdClass();
-                    $newObj->id = $id->id_pty;
-                    $newObj->id_aspek = $id->id_aspek;
-                    $newObj->nilai = $nilai[$iter];
+        if (!empty($id_k) && sizeof($ids) == sizeof($nilai)) {
+            foreach ($ids as $id) {
+                $newObj = new stdClass();
+                $newObj->id = $id->id_pty;
+                $newObj->id_aspek = $id->id_aspek;
+                $newObj->nilai = $nilai[$iter];
 
-                    array_push($idnilai, $newObj);
-                    $iter++;
-                }
+                array_push($idnilai, $newObj);
+                $iter++;
+            }
 
-                if ($this->ModNilai->postNilai($idnilai, $id_k)) {
-                    $result["sukses"] = true;
-                    $result["kode"] = 100;
-                    $result["pesan"] = "Penilaian berhasil diproses";
-                    $result["request"] = $_REQUEST;
-                } else {
-                    $result["sukses"] = false;
-                    $result["kode"] = 303;
-                    $result["pesan"] = "Penilaian gagal diproses";
-                    $result["request"] = $_REQUEST;
-                }
+            if ($this->ModNilai->postNilai($idnilai, $id_k)) {
+                $result["sukses"] = true;
+                $result["kode"] = 100;
+                $result["pesan"] = "Penilaian berhasil diproses";
+                $result["request"] = $_REQUEST;
             } else {
                 $result["sukses"] = false;
-                $result["kode"] = 404;
-                $result["pesan"] = "Parameter tidak lengkap";
+                $result["kode"] = 500;
+                $result["pesan"] = "Penilaian gagal diproses";
                 $result["request"] = $_REQUEST;
             }
         } else {
             $result["sukses"] = false;
             $result["kode"] = 501;
-            $result["pesan"] = "Pilih salah satu nama karyawan";
+            $result["pesan"] = "Parameter belum lengkap";
             $result["request"] = $_REQUEST;
         }
 

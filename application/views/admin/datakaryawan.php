@@ -29,7 +29,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+
                 </tbody>
             </table>
         </div>
@@ -77,13 +77,30 @@
                 <form action="./controllers/controllers.php" id="forminputk" method="post">
                     <div class="modal-body">
                         <div class="form-group">
-                            <input type="text" class="form-control" />
+                            <label for="it_nip">NIP</label>
+                            <input id="it_nip" name="itnip" type="text" class="form-control" />
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input class="btn btn-success" type="submit" value="Submit">
-                    </div>
+                        <div class="form-group">
+                            <label for="it_nama">Nama</label>
+                            <input id="it_nama" name="itnama" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="seljbt">Jabatan</label>
+                            <select name="seljbt" class="form-control" id="seljbt"></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Masuk Kerja</label>
+                            <div class="input-group date" data-provide="datepicker">
+                                <div class="input-group-addon">
+                                    <span class="glyphicon glyphicon-th"></span>
+                                </div>
+                                <input type="text" class="form-control datepicker" name="itwaktu">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input class="btn btn-success" type="submit" value="Submit">
+                        </div>
                 </form>
             </div>
         </div>

@@ -41,7 +41,7 @@
 
     <!-- partials scripts -->
     <?php $this->view('partials/scripts'); ?>
-
+    <script type="text/javascript" src="<?php echo base_url('assets/js/plugins/bootstrap-datepicker.min.js'); ?>"></script>
     <!-- datatables -->
     <script type="text/javascript" src="<?php echo base_url('assets/datatables/datatables.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/my.js'); ?>"></script>
@@ -111,6 +111,19 @@
                     "url": "<?php echo base_url('index.php/Nilai/get_data_user'); ?>",
                     "type": "POST"
                 }
+                // dom: 'Bfrtip',
+                // buttons: [
+                //     'pdf'
+                // ]
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function() {
+            $(".datepicker").datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true,
             });
         });
     </script>
