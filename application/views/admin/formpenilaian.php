@@ -15,9 +15,9 @@
     <?php $this->view('partials/sidemenu'); ?>
 
     <section id="sec-input-nilai" class="text-capitalize">
-        <!-- <div id="loadinger" class="loading-container">
-        <img src="./assets/imgs/loading.gif" />
-    </div> -->
+        <div id="loadinger" class="loading-container">
+            <img src="<?php echo base_url('assets/imgs/ajax-loader.gif'); ?>" />
+        </div>
         <main class="app-content">
 
             <div class="app-title">
@@ -33,23 +33,23 @@
                 </ul> -->
             </div>
 
-            <form id="form_penilaian" action="<?php echo base_url('index.php/Nilai/postNilai'); ?>" name="form_penilaian" method="POST">
-                <div class="tile">
-                    <div class="tile-body">
-                        <div class="form-group text-capitalize">
-                            <label for="selkaryawan">nama karyawan</label>
-                            <select name="selkaryawan" id="selkaryawan" class="form-control">
-                                <option value="0" selected>Pilih Karyawan</option>
-                                <?php
-                                foreach ($dtkyw as $rows) {
-                                    echo "<option value='" . $rows->id_k . "'>" . $rows->nama_k . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="form-group text-capitalize">
+                        <label for="selkaryawan">nama karyawan</label>
+                        <select name="selkaryawan" id="selkaryawan" class="form-control">
+                            <option value="0" selected>Pilih Karyawan</option>
+                            <?php
+                            foreach ($dtkyw as $rows) {
+                                echo "<option value='" . $rows->id_k . "'>" . $rows->nama_k . "</option>";
+                            }
+                            ?>
+                        </select>
                     </div>
                 </div>
+            </div>
 
+            <form id="form_penilaian" action="<?php echo base_url('index.php/Nilai/postNilai'); ?>" name="form_penilaian" method="POST">
                 <!-- pertanyaan -->
                 <?php
                 foreach (json_decode($dtpty) as $keys) {
@@ -71,7 +71,6 @@
                                         <div class="col-1">
                                             <!-- nilai value of pertanyaan -->
                                             <input type="text" value="0" name="pty<?php echo $ni; ?>" class="form-control form-control-plaintext" id="ite<?php echo $values->id_pty; ?>" readonly>
-                                            <input type="hidden" value="<?php echo $values->id_pty; ?>" name="id<?php echo $ni; ?>" />
                                         </div>
                                     </div>
                                 </div>

@@ -87,4 +87,12 @@ class ModKaryawan extends CI_Model
 
         return $this->db->count_all_results();
     }
+
+    function delKyw($id)
+    {
+        $sql = "DELETE $id from karyawans";
+        $query = $this->db->query($sql);
+
+        return $query->result();
+    }
 }

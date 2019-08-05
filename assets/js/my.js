@@ -2,29 +2,53 @@ function updateRangetoText(value, id) {
     document.getElementById(id).value = value;
 }
 
+function getFormData($form) {
+    var unindexed_array = $form.serializeArray();
+    var indexed_array = {};
+
+    $.map(unindexed_array, function (n, i) {
+        indexed_array[n['name']] = n['value'];
+    });
+
+    return indexed_array;
+}
+
 //ajax
 $(document).ready(function () {
 
-    var prefix = "";
+    var pesan = "";
 
-    // $().ajaxStart(function () {
-    //     $('#loadinger').show();
-    // }).ajaxStop(function () {
-    //     $('#loadinger').hide();
-    // });
+    $(document).ajaxStart(function () {
+        $('#loadinger').show();
+    });
+    $(document).ajaxStop(function () {
+        $('#loadinger').hide();
+    });
 
     $("#form_penilaian").submit(function () {
-        prefix = "nilai";
+        var mentah = $(this).serializeArray();
+        var mateng = new Array();
+        var id_k = $("#selkaryawan").val();
+
+        $.map(mentah, function (n, i) {
+            mateng.push(n['value']);
+        });
 
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: $(this).serialize() + "&prefix=" + prefix,
+            data: { "id_k": id_k, "data": mateng },
+            dataType: "json",
             beforeSend: function () {
                 $("html, body").animate({ scrollTop: 0 }, "slow");
             },
-            success: function (data) {
-                console.log(data);
+            success: function (response) {
+                $("#form_penilaian")[0].reset();
+                pesan = response.pesan;
+                console.log(response);
+            },
+            complete: function (data) {
+                alert(pesan);
             }
         });
         return false;

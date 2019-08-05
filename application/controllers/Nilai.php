@@ -44,58 +44,49 @@ class Nilai extends CI_Controller
 
     function postNilai()
     {
-        // nilai pertanyaans
-        $pt1 = $this->input->post("pty1");
-        $pt2 = $this->input->post("pty2");
-        $pt3 = $this->input->post("pty3");
-        $pt4 = $this->input->post("pty4");
-        $pt5 = $this->input->post("pty5");
-        $pt6 = $this->input->post("pty6");
-        $pt7 = $this->input->post("pty7");
-        $pt8 = $this->input->post("pty8");
-        $pt9 = $this->input->post("pty9");
-        $pt10 = $this->input->post("pty10");
+        $id_k = $this->input->post("id_k");
+        $nilai = $this->input->post("data");
+        $ids = $this->ModPertanyaan->getIdAll();
+        $idnilai = array();
+        $iter = 0;
+        $result = array();
 
-        //id
-        $id1 = $this->input->post("id1");
-        $id2 = $this->input->post("id2");
-        $id3 = $this->input->post("id3");
-        $id4 = $this->input->post("id4");
-        $id5 = $this->input->post("id5");
-        $id6 = $this->input->post("id6");
-        $id7 = $this->input->post("id7");
-        $id8 = $this->input->post("id8");
-        $id9 = $this->input->post("id9");
-        $id10 = $this->input->post("id10");
-        
-        $id_k = $this->input->post('selkaryawan');
+        if (!empty($id_k)) {
+            if (sizeof($ids) == sizeof($nilai)) {
+                foreach ($ids as $id) {
+                    $newObj = new stdClass();
+                    $newObj->id = $id->id_pty;
+                    $newObj->id_aspek = $id->id_aspek;
+                    $newObj->nilai = $nilai[$iter];
 
-        $arrHasil = array(
-            $id1 => $pt1,
-            $id2 => $pt2,
-            $id3 => $pt3,
-            $id4 => $pt4,
-            $id5 => $pt5,
-            $id6 => $pt6,
-            $id7 => $pt7,
-            $id8 => $pt8,
-            $id9 => $pt9,
-            $id10 => $pt10
-        );
+                    array_push($idnilai, $newObj);
+                    $iter++;
+                }
 
-        // $arrHasil = array(
-        //     $pt1, 
-        //     $pt2, 
-        //     $pt3, 
-        //     $pt4,
-        //     $pt5,
-        //     $pt6,
-        //     $pt7,
-        //     $pt8,
-        //     $pt9,
-        //     $pt10
-        // );
+                if ($this->ModNilai->postNilai($idnilai, $id_k)) {
+                    $result["sukses"] = true;
+                    $result["kode"] = 100;
+                    $result["pesan"] = "Penilaian berhasil diproses";
+                    $result["request"] = $_REQUEST;
+                } else {
+                    $result["sukses"] = false;
+                    $result["kode"] = 303;
+                    $result["pesan"] = "Penilaian gagal diproses";
+                    $result["request"] = $_REQUEST;
+                }
+            } else {
+                $result["sukses"] = false;
+                $result["kode"] = 404;
+                $result["pesan"] = "Parameter tidak lengkap";
+                $result["request"] = $_REQUEST;
+            }
+        } else {
+            $result["sukses"] = false;
+            $result["kode"] = 501;
+            $result["pesan"] = "Pilih salah satu nama karyawan";
+            $result["request"] = $_REQUEST;
+        }
 
-        $this->ModNilai->postNilai($arrHasil, $id_k);
+        echo json_encode($result);
     }
 }

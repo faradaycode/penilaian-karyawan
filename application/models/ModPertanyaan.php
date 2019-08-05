@@ -35,10 +35,12 @@ class ModPertanyaan extends CI_Model
         return json_encode($jsout);
     }
 
-    function getIdPty()
+    function getIdAll()
     {
-        $this->db->select("id_pty");
+        $this->db->select("id_pty, id_aspek");
         $this->db->from("pertanyaans");
+        $this->db->order_by("id_aspek ASC");
+        
         $query = $this->db->get();
 
         return $query->result();

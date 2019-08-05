@@ -96,25 +96,53 @@ class ModNilai extends CI_Model
     }
 
     /* penilaian simpan function */
-    function postNilai($arrayValue, $id_karyawan)
+    function postNilai($nilai, $id_karyawan)
     {
-        $pty = 1;
+        $this->db->select("id_n");
+        $this->db->where("id_k=" . $id_karyawan);
+        $cnt = $this->db->get("nilais");
 
-        foreach ($arrayValue as $nilais => $isi) {
-            echo $nilais.":". $nilais->$isi;
+        $values = array();
+
+        foreach ($nilai as $value) {
             // $sql = "INSERT INTO nilai_detail (id_nd, id_k, id_pty, id_aspek, bobot_nilai) 
-            // VALUES (null, $id_karyawan, $pty, 
-            // (SELECT id_aspek FROM pertanyaans WHERE id_pty = $pty), $nilais)";
+            // VALUES (null, $id_karyawan, $value->id, $value->id_aspek, $value->nilai)";
 
-            // $this->db->query($sql);
-
-            // $pty++;
+            array_push($values, array(
+                "id_nd" => null,
+                "id_k" => $id_karyawan,
+                "id_pty" => $value->id,
+                "id_aspek" => $value->id_aspek,
+                "bobot_nilai" => $value->nilai
+            ));
         }
 
-        //query nanti buat trigger
-        //INSERT INTO nilais(id_n, id_k, n_teknis, n_nonteknis, n_pribadi) 
-// VALUES(null, 1, (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=1 AND id_k=1), 
-// (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=2 AND id_k=1), 
-// (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=3 AND id_k=1));
+        // if ($cnt->num_rows() == 0) {
+        $this->db->trans_begin();
+
+        $res = $this->db->insert_batch("nilai_detail", $values);
+
+        if ($res) {
+            $sql = "INSERT INTO nilais(id_n, id_k, n_teknis, n_nonteknis, n_pribadi) 
+            VALUES(null, $id_karyawan, 
+            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=1 AND id_k=$id_karyawan), 
+            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=2 AND id_k=$id_karyawan), 
+            (SELECT AVG(bobot_nilai) FROM nilai_detail WHERE id_aspek=3 AND id_k=$id_karyawan))";
+
+            $qry = $this->db->query($sql);
+        }
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+
+            return false;
+        } else {
+            $this->db->trans_commit();
+
+            return true;
+        }
+        // } else { 
+        //     return false;
+        // }
     }
 }

@@ -42,4 +42,13 @@ class Karyawans extends CI_Controller
         //output dalam format JSON
         echo json_encode($output);
     }
+
+    function delKyw($id)
+    {
+        if ($this->ModKaryawan->delKyw($id)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
