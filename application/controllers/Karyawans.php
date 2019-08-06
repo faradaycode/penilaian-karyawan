@@ -56,5 +56,31 @@ class Karyawans extends CI_Controller
     {
         $nip = $this->input->post("itnip");
         $nama = $this->input->post("itnama");
+        $jbt = $this->input->post("seljbt");
+        $masuk = $this->input->post("itwaktu");
+        $result = array();
+
+        $res = $this->ModKaryawan->add($nip, $nama, $jbt, $masuk);
+
+        if (isset($nip) && isset($nama) && isset($jbt) && isset($masuk)) {
+            if ($res) {
+                $result['sukses'] = true;
+                $result['code'] = 100;
+                $result['pesan'] = "Input berhasil";
+                $result['request'] = $_REQUEST;
+            } else {
+                $result['success'] = false;
+                $result['code'] = 300;
+                $result['pesan'] = "Input gagal";
+                $result['request'] = $_REQUEST;
+            }
+        } else {
+            $result['success'] = false;
+            $result['code'] = 500;
+            $result['pesan'] = "Parameter tidak lengkap";
+            $result['request'] = $_REQUEST;
+        }
+
+        echo json_encode($result);
     }
 }

@@ -60,11 +60,15 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 $("#forminputk")[0].reset();
-                $('#mdlinputk').dismiss();
+                $('#mdlinputk').modal("hide");
+
                 alert(response.pesan);
+        
+                console.log(response);
             },
             error: function (xhr, status, error) {
                 alert(error);
+                console.log(xhr);
             }
         });
         return false;

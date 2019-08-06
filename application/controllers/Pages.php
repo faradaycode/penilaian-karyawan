@@ -19,9 +19,13 @@ class Pages extends CI_Controller
 
     public function datakaryawan()
     {
+        $this->load->model("ModKaryawan");
+
         $data['content'] = $this->load->view('admin/datakaryawan', null, true);
         $data['icon'] = IC_DTKARYAWAN;
         $data['pagename'] = DATAKARYAWAN;
+        $data['jabatan'] = $this->ModKaryawan->getJabatan();
+        
         $this->load->view('admin/index', $data);
     }
 

@@ -101,3 +101,8 @@ define("IC_DASHBOARD", "fa-dashboard");
 define("IC_DTKARYAWAN", "fa-users");
 define("IC_DTNILAI", "fa-book");
 define("IC_FMNILAI", "fa-bar-chart");
+
+CONST NIPKYW = "nip_k";
+CONST NAMAKYW = "nama_k";
+CONST IDJABAT = "id_j";
+CONST MULAIKERJA = "mulai_kerja";

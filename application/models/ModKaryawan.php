@@ -95,4 +95,25 @@ class ModKaryawan extends CI_Model
 
         return $query->result();
     }
+
+    function getJabatan()
+    {
+        $this->db->select("*");
+        $this->db->from("jabatans");
+        $res = $this->db->get();
+
+        return $res->result();
+    }
+
+    function add($nip, $nama, $jabatan, $hari_gabung)
+    {
+        $data = array(
+            NIPKYW => $nip,
+            NAMAKYW => $nama,
+            IDJABAT => $jabatan,
+            MULAIKERJA => $hari_gabung
+        );
+
+        return $this->db->insert("karyawans", $data);
+    }
 }

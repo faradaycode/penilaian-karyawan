@@ -37,6 +37,55 @@
                 <?php echo $content; ?>
             </div>
         </main>
+
+        <!-- Modal input -->
+        <div class="modal fade" id="mdlinputk" tabindex="-1" role="dialog" aria-labelledby="inputkywlabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="inputkywlabel">Tambah Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="<?php echo base_url('index.php/Karyawans/add'); ?>" id="forminputk" method="post">
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="it_nip">NIP</label>
+                                <input id="it_nip" name="itnip" type="number" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="it_nama">Nama</label>
+                                <input id="it_nama" name="itnama" type="text" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label for="seljbt">Jabatan</label>
+                                <select name="seljbt" class="form-control" id="seljbt">
+                                    <option value="0">Pilih Jabatan</option>
+                                    <?php
+                                    foreach ($jabatan as $j) {
+                                        echo "<option value='$j->id_j'>$j->nama_j</option>";
+                                    } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Masuk Kerja</label>
+                                <div id="holder-calendar" class="input-group mb-3 date" data-provide="datepicker">
+                                    <input type="text" class="form-control" name="itwaktu" aria-describedby="icondate">
+
+                                    <div class="input-group-append text-center">
+                                        <span class="input-group-text fa fa-calendar" id="icondate"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <input class="btn btn-success" type="submit" value="Submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- partials scripts -->
