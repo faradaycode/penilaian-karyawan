@@ -74,7 +74,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="./controllers/controllers.php" id="forminputk" method="post">
+                <form action="<?php echo base_url('index.php/Karyawans/add'); ?>" id="forminputk" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="it_nip">NIP</label>
@@ -90,17 +90,18 @@
                         </div>
                         <div class="form-group">
                             <label>Masuk Kerja</label>
-                            <div class="input-group date" data-provide="datepicker">
-                                <div class="input-group-addon">
-                                    <span class="glyphicon glyphicon-th"></span>
+                            <div id="holder-calendar" class="input-group mb-3 date" data-provide="datepicker">
+                                <input type="text" class="form-control" name="itwaktu" aria-describedby="icondate">
+
+                                <div class="input-group-append text-center">
+                                    <span class="input-group-text fa fa-calendar" id="icondate"></span>
                                 </div>
-                                <input type="text" class="form-control datepicker" name="itwaktu">
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <input class="btn btn-success" type="submit" value="Submit">
                         </div>
+                    </div>
                 </form>
             </div>
         </div>

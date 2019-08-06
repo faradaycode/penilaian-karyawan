@@ -51,4 +51,10 @@ class Karyawans extends CI_Controller
             return false;
         }
     }
+
+    function add()
+    {
+        $nip = $this->input->post("itnip");
+        $nama = $this->input->post("itnama");
+    }
 }

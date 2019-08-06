@@ -15,7 +15,7 @@ function getFormData($form) {
 
 //ajax
 $(document).ready(function () {
-    
+
     $(document).ajaxStart(function () {
         $('#loadinger').show();
     });
@@ -42,6 +42,25 @@ $(document).ready(function () {
             },
             success: function (response) {
                 $("#form_penilaian")[0].reset();
+                alert(response.pesan);
+            },
+            error: function (xhr, status, error) {
+                alert(error);
+            }
+        });
+        return false;
+    });
+
+    //input modal karyawan
+    $("#forminputk").submit(function () {
+        $.ajax({
+            type: "POST",
+            url: $(this).attr("action"),
+            data: $(this).serialize(),
+            dataType: "json",
+            success: function (response) {
+                $("#forminputk")[0].reset();
+                $('#mdlinputk').dismiss();
                 alert(response.pesan);
             },
             error: function (xhr, status, error) {
@@ -79,4 +98,11 @@ $(document).ready(function () {
         }
         $(this).next('.custom-file-label').html(files.join(', '));
     });
+
+    $("#holder-calendar").datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true,
+    });
+
 });
