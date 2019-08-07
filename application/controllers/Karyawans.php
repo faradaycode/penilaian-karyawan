@@ -83,4 +83,47 @@ class Karyawans extends CI_Controller
 
         echo json_encode($result);
     }
+
+    function import()
+    {
+        if (isset($_POST['prefix'])) {
+
+            $file = $_FILES['filekaryawan']['tmp_name'];
+
+            // Medapatkan ekstensi file csv yang akan diimport.
+            $ekstensi  = explode('.', $_FILES['filekaryawan']['name']);
+
+            // Tampilkan peringatan jika submit tanpa memilih menambahkan file.
+            if (empty($file)) {
+                echo 'File tidak boleh kosong!';
+            } else {
+                // Validasi apakah file yang diupload benar-benar file csv.
+                if (strtolower(end($ekstensi)) === 'csv' && $_FILES["filekaryawan"]["size"] > 0) {
+
+                    $i = 0;
+                    $handle = fopen($file, "r");
+                    while (($row = fgetcsv($handle, 2048))) {
+                        $i++;
+                        if ($i == 1) continue;
+
+                        // Data yang akan disimpan ke dalam databse
+                        $data = [
+                            'nip_k' => $row[0],
+                            'nama_k' => $row[1],
+                            'id_j' => $row[2],
+                            'mulai_kerja' => $row[3]
+                        ];
+
+                        // Simpan data ke database.
+                        $this->pelanggan->save($data);
+                    }
+
+                    fclose($handle);
+                    redirect('data');
+                } else {
+                    echo 'Format file tidak valid!';
+                }
+            }
+        }
+    }
 }

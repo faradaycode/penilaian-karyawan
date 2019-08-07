@@ -75,10 +75,7 @@ $(document).ready(function () {
     });
 
     $("#formimport").submit(function () {
-        prefix = "import";
         var formdata = new FormData(this);
-
-        console.log(formdata);
 
         $.ajax({
             type: "POST",

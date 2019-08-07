@@ -116,4 +116,16 @@ class ModKaryawan extends CI_Model
 
         return $this->db->insert("karyawans", $data);
     }
+
+    function getAllNilai()
+    {
+        $this->db->select("nama_k, nip_k, nama_j, n_teknis, n_nonteknis, n_pribadi");
+        $this->db->from("karyawans");
+        $this->db->join("jabatans", "jabatans.id_j= karyawans.id_j");
+        $this->db->join("nilais", "nilais.id_k= karyawans.id_k");
+
+        $query = $this->db->get();
+
+        return $query->result();
+    }
 }

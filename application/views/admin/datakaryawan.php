@@ -45,7 +45,7 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="../../controllers/controllers.php" id="formimport" enctype="multipart/form-data" method="post">
+                <form action="<?php echo base_url('index.php/Karyawans/import'); ?>" id="formimport" enctype="multipart/form-data" method="post">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-file">

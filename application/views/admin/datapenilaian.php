@@ -1,4 +1,4 @@
-<a class="btn btn-primary" href="./pages/cetak.php" target="_BLANK">Cetak Laporan</a>
+<a class="btn btn-primary" href="<?php echo base_url('index.php/Report/CetakSemua'); ?>" target="_BLANK">Cetak Laporan</a>
 
 <div class="tile mt-2">
     <div class="tile-body">
