@@ -81,14 +81,16 @@ $(document).ready(function () {
             type: "POST",
             url: $(this).attr("action"),
             data: formdata,
+            dataType: "json",
             success: function (data) {
-                console.log(data);
+                alsert (data.pesan);
             },
             error: function (xhr, exception) {
                 console.log("xhr: " + xhr);
                 console.log("ex: " + exception);
             }
         });
+        
         return false;
     });
 

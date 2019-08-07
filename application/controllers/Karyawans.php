@@ -86,6 +86,8 @@ class Karyawans extends CI_Controller
 
     function import()
     {
+        $result = array();
+
         if (isset($_POST['prefix'])) {
 
             $file = $_FILES['filekaryawan']['tmp_name'];
@@ -95,35 +97,57 @@ class Karyawans extends CI_Controller
 
             // Tampilkan peringatan jika submit tanpa memilih menambahkan file.
             if (empty($file)) {
-                echo 'File tidak boleh kosong!';
+                $result['sukses'] = false;
+                $result['code'] = 501;
+                $result['pesan'] = "File kosong";
+                $result['request'] = $_REQUEST;
             } else {
                 // Validasi apakah file yang diupload benar-benar file csv.
                 if (strtolower(end($ekstensi)) === 'csv' && $_FILES["filekaryawan"]["size"] > 0) {
-
-                    $i = 0;
+                    $csv = array();
+                    $field = array();
                     $handle = fopen($file, "r");
-                    while (($row = fgetcsv($handle, 2048))) {
-                        $i++;
-                        if ($i == 1) continue;
+                    $row = 0;
+                    $col = 0;
 
-                        // Data yang akan disimpan ke dalam databse
-                        $data = [
-                            'nip_k' => $row[0],
-                            'nama_k' => $row[1],
-                            'id_j' => $row[2],
-                            'mulai_kerja' => $row[3]
-                        ];
+                    while (($row = fgetcsv($handle, 2048)) !== false) {
+                        if (empty($field)) {
+                            $field = $row;
+                            continue;
+                        }
 
-                        // Simpan data ke database.
-                        $this->pelanggan->save($data);
+                        foreach ($row as $key => $value) {
+                            $csv[$col][$field[$key]] = $value;
+                        }
+
+                        $col++;
+                        unset($row);
                     }
 
                     fclose($handle);
-                    redirect('data');
+
+                    $res = $this->ModKaryawan->addBatch($csv);
+
+                    if ($res) {
+                        $result['sukses'] = true;
+                        $result['code'] = 100;
+                        $result['pesan'] = "Input berhasil";
+                        $result['request'] = $_REQUEST;
+                    } else {
+                        $result['success'] = false;
+                        $result['code'] = 300;
+                        $result['pesan'] = "Input gagal";
+                        $result['request'] = $_REQUEST;
+                    }
                 } else {
-                    echo 'Format file tidak valid!';
+                    $result['sukses'] = false;
+                    $result['code'] = 500;
+                    $result['pesan'] = "Format file tidak didukung";
+                    $result['request'] = $_REQUEST;
                 }
             }
         }
+
+        echo json_encode($result);
     }
 }
