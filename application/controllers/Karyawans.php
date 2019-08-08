@@ -24,12 +24,12 @@ class Karyawans extends CI_Controller
             $row[] = $field->nama_k;
             $row[] = $field->nama_j;
             $row[] = $this->tgl_indo($field->mulai_kerja);
-            $row[] = "<button class='btn btn-sm btn-primary text-center'>
+            $row[] = "<button class='edit btn btn-sm btn-primary text-center' id='ed_$field->id_k'>
             <i class='fa fa-pencil'></i>
             </button>
-            <a href='#' class='delete btn btn-sm btn-danger text-center' id='dl_$field->id_k'>
+            <button class='delete btn btn-sm btn-danger text-center' id='dl_$field->id_k'>
             <i class='fa fa-trash'></i>
-            </a>";
+            </button>";
 
             $data[] = $row;
         }
@@ -59,27 +59,50 @@ class Karyawans extends CI_Controller
         $nama = $this->input->post("itnama");
         $jbt = $this->input->post("seljbt");
         $masuk = $this->input->post("itwaktu");
+        $editkah = $this->input->post("editkah");
         $result = array();
 
-        $res = $this->ModKaryawan->add($nip, $nama, $jbt, $masuk);
-
-        if (isset($nip) && isset($nama) && isset($jbt) && isset($masuk)) {
-            if ($res) {
-                $result['sukses'] = true;
-                $result['code'] = 100;
-                $result['pesan'] = "Input berhasil";
-                $result['request'] = $_REQUEST;
+        if (!empty($editkah)) {
+            if (isset($nip) && isset($nama) && isset($jbt) && isset($masuk)) {
+                $editing = $this->ModKaryawan->update($editkah, $nip, $nama, $jbt, $masuk);
+             
+                if ($editing) {
+                    $result['sukses'] = true;
+                    $result['code'] = 100;
+                    $result['pesan'] = "Update berhasil";
+                    $result['request'] = $_REQUEST;
+                } else {
+                    $result['success'] = false;
+                    $result['code'] = 300;
+                    $result['pesan'] = "Update gagal";
+                    $result['request'] = $_REQUEST;
+                }
             } else {
                 $result['success'] = false;
-                $result['code'] = 300;
-                $result['pesan'] = "Input gagal";
+                $result['code'] = 500;
+                $result['pesan'] = "Parameter tidak lengkap";
                 $result['request'] = $_REQUEST;
             }
         } else {
-            $result['success'] = false;
-            $result['code'] = 500;
-            $result['pesan'] = "Parameter tidak lengkap";
-            $result['request'] = $_REQUEST;
+            if (isset($nip) && isset($nama) && isset($jbt) && isset($masuk)) {
+                $res = $this->ModKaryawan->add($nip, $nama, $jbt, $masuk);
+                if ($res) {
+                    $result['sukses'] = true;
+                    $result['code'] = 100;
+                    $result['pesan'] = "Input berhasil";
+                    $result['request'] = $_REQUEST;
+                } else {
+                    $result['success'] = false;
+                    $result['code'] = 300;
+                    $result['pesan'] = "Input gagal";
+                    $result['request'] = $_REQUEST;
+                }
+            } else {
+                $result['success'] = false;
+                $result['code'] = 500;
+                $result['pesan'] = "Parameter tidak lengkap";
+                $result['request'] = $_REQUEST;
+            }
         }
 
         echo json_encode($result);
@@ -181,6 +204,7 @@ class Karyawans extends CI_Controller
         $id = $this->input->post("idk");
 
         $res = $this->ModKaryawan->del($id);
+        $result = array();
 
         if (!empty($id)) {
             if ($res) {
@@ -196,9 +220,11 @@ class Karyawans extends CI_Controller
             }
         } else {
             $result['success'] = false;
-                $result['code'] = 500;
-                $result['pesan'] = "General error";
-                $result['request'] = $_REQUEST;
+            $result['code'] = 500;
+            $result['pesan'] = "General error";
+            $result['request'] = $_REQUEST;
         }
+
+        echo json_encode($result);
     }
 }

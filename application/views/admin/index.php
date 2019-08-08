@@ -71,7 +71,7 @@
                             <div class="form-group">
                                 <label>Masuk Kerja</label>
                                 <div id="holder-calendar" class="input-group mb-3 date" data-provide="datepicker">
-                                    <input type="text" class="form-control" name="itwaktu" aria-describedby="icondate">
+                                    <input type="text" class="form-control" id="it_waktu" name="itwaktu" aria-describedby="icondate">
 
                                     <div class="input-group-append text-center">
                                         <span class="input-group-text fa fa-calendar" id="icondate"></span>
@@ -79,6 +79,7 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
+                                <input type="hidden" name="editkah" id="editkah" />
                                 <input class="btn btn-success" type="submit" value="Submit">
                             </div>
                         </div>
@@ -95,15 +96,14 @@
     <script type="text/javascript">
         var BASE_URL = "<?php echo base_url(); ?>";
     </script>
-    
+
     <!-- datatables -->
     <script type="text/javascript" src="<?php echo base_url('assets/datatables/datatables.min.js'); ?>"></script>
-    <script type="text/javascript" src="<?php echo base_url('assets/js/my.js'); ?>"></script>
     <script type="text/javascript">
         $(document).ready(function() {
 
             //set datatables
-            $('#tb_datakyw').DataTable({
+            var datanyakyw = $('#tb_datakyw').DataTable({
                 "columnDefs": [{
                         "width": "5%",
                         "targets": 0
@@ -175,8 +175,30 @@
                 //     'pdf'
                 // ]
             });
+
+            //edit
+            $("#tb_datakyw tbody").on("click", ".edit", function() {
+                var data = datanyakyw.row($(this).parents('tr')).data();
+                var id = this.id;
+                var splitid = id.split("_");
+                var updid = splitid[1];
+
+                $(".modal-body #it_nip").val(data[1]);
+                $(".modal-body #it_nama").val(data[2]);
+                // $(".modal-body #seljbt").val(el.id);
+                $(".modal-body #seljbt option").filter(function() {
+                    //may want to use $.trim in here
+                    return $(this).text().trim() == data[3];
+                }).prop('selected', true);
+                // $(".modal-body #it_waktu").val(data[4]);
+                $(".modal-body #editkah").val(updid);
+
+                $("#mdlinputk").modal("show");
+            });
         });
     </script>
+
+    <script type="text/javascript" src="<?php echo base_url('assets/js/my.js'); ?>"></script>
 </body>
 
 </html>

@@ -119,6 +119,20 @@ class ModKaryawan extends CI_Model
         return $this->db->insert("karyawans", $data);
     }
 
+    function update($id, $nip, $nama, $jabatan, $hari_gabung)
+    {
+        $data = array(
+            NIPKYW => $nip,
+            NAMAKYW => $nama,
+            IDJABAT => $jabatan,
+            MULAIKERJA => $hari_gabung
+        );
+
+        $this->db->where("id_k", $id);
+
+        return $this->db->update("karyawans", $data);
+    }
+
     function addBatch($array)
     {
         return $this->db->insert_batch("karyawans", $array);

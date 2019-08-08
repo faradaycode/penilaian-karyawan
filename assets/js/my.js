@@ -7,7 +7,7 @@ function getFormData($form) {
     var indexed_array = {};
 
     $.map(unindexed_array, function (n, i) {
-        indexed_array[n['name']] = n['value'];
+        indexed_array[n["name"]] = n["value"];
     });
 
     return indexed_array;
@@ -15,12 +15,11 @@ function getFormData($form) {
 
 //ajax
 $(document).ready(function () {
-
     $(document).ajaxStart(function () {
-        $('#loadinger').show();
+        $("#loadinger").show();
     });
     $(document).ajaxStop(function () {
-        $('#loadinger').hide();
+        $("#loadinger").hide();
     });
 
     $("#form_penilaian").submit(function () {
@@ -29,13 +28,13 @@ $(document).ready(function () {
         var id_k = $("#selkaryawan").val();
 
         $.map(mentah, function (n, i) {
-            mateng.push(n['value']);
+            mateng.push(n["value"]);
         });
 
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: { "id_k": id_k, "data": mateng },
+            data: { id_k: id_k, data: mateng },
             dataType: "json",
             beforeSend: function () {
                 $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -60,7 +59,7 @@ $(document).ready(function () {
             dataType: "json",
             success: function (response) {
                 $("#forminputk")[0].reset();
-                $('#mdlinputk').modal("hide");
+                $("#mdlinputk").modal("hide");
 
                 alert(response.pesan);
 
@@ -74,7 +73,7 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#formimport").on('submit', function (event) {
+    $("#formimport").on("submit", function (event) {
         event.preventDefault();
 
         $.ajax({
@@ -88,7 +87,9 @@ $(document).ready(function () {
             success: function (data) {
                 alert(data.pesan);
                 $("#mdimport").modal("hide");
-                $("#tb_datakyw").DataTable().ajax.reload();
+                $("#tb_datakyw")
+                    .DataTable()
+                    .ajax.reload();
             },
             error: function (xhr, exception) {
                 console.log("xhr: " + xhr.responseText);
@@ -97,22 +98,24 @@ $(document).ready(function () {
         });
     });
 
-    $('.custom-file input').change(function (e) {
+    $(".custom-file input").change(function (e) {
         var files = [];
         for (var i = 0; i < $(this)[0].files.length; i++) {
             files.push($(this)[0].files[i].name);
         }
-        $(this).next('.custom-file-label').html(files.join(', '));
+        $(this)
+            .next(".custom-file-label")
+            .html(files.join(", "));
     });
 
     $("#holder-calendar").datepicker({
         format: "yyyy-mm-dd",
         autoclose: true,
-        todayHighlight: true,
+        todayHighlight: true
     });
 
-    // Delete 
-    $('.delete').click(function () {
+    // Delete
+    $("#tb_datakyw tbody").on("click", ".delete", function () {
         var el = this;
         var id = this.id;
         var splitid = id.split("_");
@@ -120,20 +123,25 @@ $(document).ready(function () {
         // Delete id
         var deleteid = splitid[1];
 
-        alert(BASE_URL);
-        // AJAX Request
-        $.ajax({
-            url: BASE_URL + 'index.php/Karyawans/del',
-            type: 'POST',
-            data: { id: deleteid },
-            dataType: 'json',
-            success: function (response) {
-                alert(response.pesan)
-            },
-            error: function (xhr) {
-                alert(xhr.responseText);
-            }
-        });
-
+        if (confirm("Hapus data?")) {
+            //yes
+            $.ajax({
+                url: BASE_URL + "index.php/Karyawans/del",
+                type: "POST",
+                data: { idk: deleteid },
+                dataType: "json",
+                success: function (response) {
+                    alert(response.pesan);
+                    $("#tb_datakyw")
+                        .DataTable()
+                        .ajax.reload();
+                },
+                error: function (xhr) {
+                    alert(xhr.responseText);
+                }
+            });
+        } else {
+            //no
+        }
     });
 });
