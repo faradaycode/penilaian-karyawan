@@ -63,7 +63,7 @@ $(document).ready(function () {
                 $('#mdlinputk').modal("hide");
 
                 alert(response.pesan);
-        
+
                 console.log(response);
             },
             error: function (xhr, status, error) {
@@ -74,24 +74,27 @@ $(document).ready(function () {
         return false;
     });
 
-    $("#formimport").submit(function () {
-        var formdata = new FormData(this);
+    $("#formimport").on('submit', function (event) {
+        event.preventDefault();
 
         $.ajax({
             type: "POST",
             url: $(this).attr("action"),
-            data: formdata,
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
             dataType: "json",
             success: function (data) {
-                alsert (data.pesan);
+                alert(data.pesan);
+                $("#mdimport").modal("hide");
+                $("#tb_datakyw").DataTable().ajax.reload();
             },
             error: function (xhr, exception) {
-                console.log("xhr: " + xhr);
+                console.log("xhr: " + xhr.responseText);
                 console.log("ex: " + exception);
             }
         });
-        
-        return false;
     });
 
     $('.custom-file input').change(function (e) {
@@ -108,4 +111,29 @@ $(document).ready(function () {
         todayHighlight: true,
     });
 
+    // Delete 
+    $('.delete').click(function () {
+        var el = this;
+        var id = this.id;
+        var splitid = id.split("_");
+
+        // Delete id
+        var deleteid = splitid[1];
+
+        alert(BASE_URL);
+        // AJAX Request
+        $.ajax({
+            url: BASE_URL + 'index.php/Karyawans/del',
+            type: 'POST',
+            data: { id: deleteid },
+            dataType: 'json',
+            success: function (response) {
+                alert(response.pesan)
+            },
+            error: function (xhr) {
+                alert(xhr.responseText);
+            }
+        });
+
+    });
 });

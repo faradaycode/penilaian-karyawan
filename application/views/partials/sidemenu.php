@@ -4,9 +4,9 @@
         <img class="app-sidebar__user-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/jsa/48.jpg" alt="User Image">
         <div>
             <p class="app-sidebar__user-name">
-                <?php //get sessio user name ?>
+                <?php echo $this->session->userdata('username') ?>
             </p>
-            <p class="app-sidebar__user-designation"><?php //get sessio user level ?></p>
+            <!-- <p class="app-sidebar__user-designation"><?php //get sessio user level ?></p> -->
         </div>
     </div>
     <ul class="app-menu">

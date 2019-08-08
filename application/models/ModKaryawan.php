@@ -26,7 +26,9 @@ class ModKaryawan extends CI_Model
     private function _get_datatables_query()
     {
 
+        $this->db->select("id_k, nip_k, nama_k, nama_j, mulai_kerja");
         $this->db->from($this->table);
+        $this->db->join("jabatans", $this->table . ".id_j=jabatans.id_j");
 
         $i = 0;
 
@@ -117,21 +119,9 @@ class ModKaryawan extends CI_Model
         return $this->db->insert("karyawans", $data);
     }
 
-    function addBatch($array) {
-        
-        // $this->db->trans_begin();
-        $datas = array();
-
-        foreach ($array as $row) {
-            array_push($datas, array(
-                'nip_k' => $row['nip'],
-                'nama_k' => $row['nama'],
-                'id_j' => $row['id_j'],
-                'mulai_kerja' => $row['mulai_kerja']
-            ));
-        }
-
-        return $this->db->insert_batch("karyawans", $datas);
+    function addBatch($array)
+    {
+        return $this->db->insert_batch("karyawans", $array);
     }
 
     function getAllNilai()
@@ -144,5 +134,11 @@ class ModKaryawan extends CI_Model
         $query = $this->db->get();
 
         return $query->result();
+    }
+
+    function del($id)
+    {
+        $this->db->where('id_k', $id);
+        return $this->db->delete($this->table);
     }
 }

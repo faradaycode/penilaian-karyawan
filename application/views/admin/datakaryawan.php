@@ -2,7 +2,7 @@
     <div class="upper-button">
         <div class="flexbox text-capitalize">
             <div>
-                <button class="btn btn-success" data-toggle="modal" data-target="#mdlkaryawan">
+                <button class="btn btn-success" data-toggle="modal" data-target="#mdimport">
                     <i class="fa fa-file"></i>
                     <span>Import File CSV</span>
                 </button>
@@ -25,6 +25,7 @@
                         <th>NIK</th>
                         <th>Nama</th>
                         <th>Jabatan</th>
+                        <th>Tahun Bekerja</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -36,7 +37,7 @@
     </div>
 
     <!-- Modal import -->
-    <div class="modal fade" id="mdlkaryawan" tabindex="-1" role="dialog" aria-labelledby="importkywLabel" aria-hidden="true">
+    <div class="modal fade" id="mdimport" tabindex="-1" role="dialog" aria-labelledby="importkywLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -45,18 +46,16 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="<?php echo base_url('index.php/Karyawans/import'); ?>" id="formimport" enctype="multipart/form-data" method="post">
+                <form action="<?php echo base_url('index.php/Karyawans/import'); ?>" id="formimport" enctype="multipart/form-data">
                     <div class="modal-body">
                         <div class="form-group">
                             <div class="custom-file">
-                                <input type="hidden" name="prefix" value="import" />
                                 <input type="file" id="filekaryawan" name="filekaryawan" class="custom-file-input">
                                 <label class="custom-file-label text-left" for="customFile">choose files to upload</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <input class="btn btn-success" type="submit" value="Submit">
                     </div>
                 </form>

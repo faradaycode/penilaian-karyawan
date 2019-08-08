@@ -91,6 +91,11 @@
     <!-- partials scripts -->
     <?php $this->view('partials/scripts'); ?>
     <script type="text/javascript" src="<?php echo base_url('assets/js/plugins/bootstrap-datepicker.min.js'); ?>"></script>
+
+    <script type="text/javascript">
+        var BASE_URL = "<?php echo base_url(); ?>";
+    </script>
+    
     <!-- datatables -->
     <script type="text/javascript" src="<?php echo base_url('assets/datatables/datatables.min.js'); ?>"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/js/my.js'); ?>"></script>
@@ -112,9 +117,14 @@
                         "targets": 3
                     },
                     {
-                        "width": "10%",
+                        "width": "13%",
                         "orderable": false,
                         "targets": 4
+                    },
+                    {
+                        "width": "10%",
+                        "orderable": false,
+                        "targets": 5
                     },
                 ],
                 "processing": true,

@@ -22,13 +22,14 @@ class Karyawans extends CI_Controller
             $row[] = $no;
             $row[] = $field->nip_k;
             $row[] = $field->nama_k;
-            $row[] = $field->id_j;
+            $row[] = $field->nama_j;
+            $row[] = $this->tgl_indo($field->mulai_kerja);
             $row[] = "<button class='btn btn-sm btn-primary text-center'>
             <i class='fa fa-pencil'></i>
             </button>
-            <button class='btn btn-sm btn-danger text-center'>
+            <a href='#' class='delete btn btn-sm btn-danger text-center' id='dl_$field->id_k'>
             <i class='fa fa-trash'></i>
-            </button>";
+            </a>";
 
             $data[] = $row;
         }
@@ -87,67 +88,117 @@ class Karyawans extends CI_Controller
     function import()
     {
         $result = array();
+        $file = $_FILES['filekaryawan']['tmp_name'];
+        $ekstensi  = explode('.', $_FILES['filekaryawan']['name']);
 
-        if (isset($_POST['prefix'])) {
+        // Tampilkan peringatan jika submit tanpa memilih menambahkan file.
+        if (empty($file)) {
+            $result['sukses'] = false;
+            $result['code'] = 501;
+            $result['pesan'] = "File kosong";
+            $result['request'] = $_REQUEST;
+        } else {
+            // Validasi apakah file yang diupload benar-benar file csv.
+            if (strtolower(end($ekstensi)) === 'csv' && $_FILES["filekaryawan"]["size"] > 0) {
+                $field = array();
+                $handle = fopen($file, "r");
+                $i = 0;
+                $arrdata = array();
 
-            $file = $_FILES['filekaryawan']['tmp_name'];
+                while (($row = fgetcsv($handle, 2048))) {
+                    $i++;
 
-            // Medapatkan ekstensi file csv yang akan diimport.
-            $ekstensi  = explode('.', $_FILES['filekaryawan']['name']);
-
-            // Tampilkan peringatan jika submit tanpa memilih menambahkan file.
-            if (empty($file)) {
-                $result['sukses'] = false;
-                $result['code'] = 501;
-                $result['pesan'] = "File kosong";
-                $result['request'] = $_REQUEST;
-            } else {
-                // Validasi apakah file yang diupload benar-benar file csv.
-                if (strtolower(end($ekstensi)) === 'csv' && $_FILES["filekaryawan"]["size"] > 0) {
-                    $csv = array();
-                    $field = array();
-                    $handle = fopen($file, "r");
-                    $row = 0;
-                    $col = 0;
-
-                    while (($row = fgetcsv($handle, 2048)) !== false) {
-                        if (empty($field)) {
-                            $field = $row;
-                            continue;
-                        }
-
-                        foreach ($row as $key => $value) {
-                            $csv[$col][$field[$key]] = $value;
-                        }
-
-                        $col++;
-                        unset($row);
+                    if (empty($field)) {
+                        $field = $row;
+                        continue;
                     }
 
-                    fclose($handle);
-
-                    $res = $this->ModKaryawan->addBatch($csv);
-
-                    if ($res) {
-                        $result['sukses'] = true;
-                        $result['code'] = 100;
-                        $result['pesan'] = "Input berhasil";
-                        $result['request'] = $_REQUEST;
-                    } else {
-                        $result['success'] = false;
-                        $result['code'] = 300;
-                        $result['pesan'] = "Input gagal";
-                        $result['request'] = $_REQUEST;
+                    if ($i == 1) {
+                        continue;
                     }
+
+                    array_push($arrdata, array(
+                        'nip_k' => $row[0],
+                        'nama_k' => $row[1],
+                        'id_j' => $row[2],
+                        'mulai_kerja' => $row[3]
+                    ));
+                }
+
+                fclose($handle);
+
+                $res = $this->ModKaryawan->addBatch($arrdata);
+
+                if ($res) {
+                    $result['sukses'] = true;
+                    $result['code'] = 100;
+                    $result['pesan'] = "Input berhasil";
+                    $result['request'] = $_REQUEST;
                 } else {
-                    $result['sukses'] = false;
-                    $result['code'] = 500;
-                    $result['pesan'] = "Format file tidak didukung";
+                    $result['success'] = false;
+                    $result['code'] = 300;
+                    $result['pesan'] = "Input gagal";
                     $result['request'] = $_REQUEST;
                 }
+            } else {
+                $result['sukses'] = false;
+                $result['code'] = 500;
+                $result['pesan'] = "Format file tidak didukung";
+                $result['request'] = $_REQUEST;
             }
         }
 
         echo json_encode($result);
+    }
+
+    function tgl_indo($tanggal)
+    {
+        $bulan = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $tanggal);
+
+        // variabel pecahkan 0 = tanggal
+        // variabel pecahkan 1 = bulan
+        // variabel pecahkan 2 = tahun
+
+        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
+    }
+
+    function del()
+    {
+        $id = $this->input->post("idk");
+
+        $res = $this->ModKaryawan->del($id);
+
+        if (!empty($id)) {
+            if ($res) {
+                $result['sukses'] = true;
+                $result['code'] = 100;
+                $result['pesan'] = "Berhasil menghapus data";
+                $result['request'] = $_REQUEST;
+            } else {
+                $result['success'] = false;
+                $result['code'] = 300;
+                $result['pesan'] = "Gagal menghapus data";
+                $result['request'] = $_REQUEST;
+            }
+        } else {
+            $result['success'] = false;
+                $result['code'] = 500;
+                $result['pesan'] = "General error";
+                $result['request'] = $_REQUEST;
+        }
     }
 }
